@@ -1,0 +1,84 @@
+{% extends "/templates/dashboard.html" %}
+
+
+
+{% block head_include %}
+    <link rel="stylesheet" href="/assets/vessel/css/list.css" />
+    <script type="text/javascript" src="/assets/vessel/js/user-list.js"></script>
+    <script type="module" src="/assets/vessel/js/list.js"></script>
+{% endblock %}
+
+{% block page_content %}
+<div class="page-area">
+    <div class="page-title d-flex">
+        <h4>User</h4>
+        <!-- button group -->
+        <div class="actin-btn-group d-flex align-items-center">
+        <!-- action button -->
+        <div class="dropdown mr-3">
+                <button class="btn btn-action" type="button" id="action-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Actions
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-expand" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708m0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708"/>
+                  </svg>
+                </button>
+
+                <div class="dropdown-menu" aria-labelledby="action-button">
+                <a class="dropdown-item" id="delete">Delete</a>
+                </div>
+            </div>
+            <!-- add button -->
+            <a class="btn btn-add" href="/user/new-user">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                  </svg>
+                   Add User
+                </a>
+        </div>
+    </div>
+
+    <section class="list-section">
+        <div class="table-responsive">
+            <div class="filter-section d-flex">
+                <input type="text" name="user-name" id="user-name" placeholder="User Name" class="filter form-control mr-3">
+                <select class="custom-select filter form-control mr-3" id="status" name="language">
+                    <option selected value="">Status</option>
+                    <option value="1">Active</option>
+                    <option value="0">Inactive</option>
+                </select>
+                <input type="text" name="contact-no" id="contact-no" placeholder="Contact No." class="filter form-control mr-3">
+            </div>
+
+            <table class="table w-100">
+                <thead>
+                    <tr>
+                        <th class="check-box"><input type="checkbox" class="checkall" name="checkall" /></th>
+                        <th style="width: 240px;">Name</th>
+                        <th style="width: 350px;">Email</th>
+                        <th style="width: 350px;">Contact no.</th>
+                        <th style="width: 350px;">Location</th>
+                        <th style="min-width: 200px;">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="data-list">
+                
+                </tbody>
+            </table>
+        </div>
+        
+
+    </section>
+        
+    <!-- pagination section -->
+<section class="pagination">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination" id="pagination">
+          <li class="previous-btn"><a class="page-link align-items-center d-flex" href="javascript:void(0)"><img src="/assets/vessel/files/images/previous-page.png" alt="previous" class="mr-1"> Previous</a></li>
+
+          <li class="next-btn"><a class="page-link align-items-center d-flex" href="javascript:void(0)" id="nextpage">Next <img src="/assets/vessel/files/images/next-page.png" alt="next" class="ml-1"></a></li>
+        </ul>
+      </nav>
+</section>
+
+</div>
+{% endblock %}

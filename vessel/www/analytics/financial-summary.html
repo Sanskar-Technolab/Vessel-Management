@@ -1,0 +1,73 @@
+{% extends "/templates/dashboard.html" %}
+
+{% block head_include %}
+    <link rel="stylesheet" href="/assets/vessel/css/report.css" />
+    <script defer src="/assets/vessel/js/report.js"></script>
+    
+
+{% endblock %}
+
+{% block page_content %}
+<div class="page-area">
+    <div class="page-title d-flex">
+        <h4>Compare Actual vs Estimated Expense</h4>
+        <!-- button group -->
+        <div class="actin-btn-group d-flex align-items-center">
+        <!-- refresh button -->
+        <button class="btn btn-refresh mr-3">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.0033 1.59794V5.59794C16.0033 5.81011 15.919 6.01359 15.7689 6.16362C15.6189 6.31365 15.4154 6.39794 15.2033 6.39794H11.2033C10.9911 6.39794 10.7876 6.31365 10.6376 6.16362C10.4875 6.01359 10.4033 5.81011 10.4033 5.59794C10.4033 5.38577 10.4875 5.18228 10.6376 5.03225C10.7876 4.88222 10.9911 4.79794 11.2033 4.79794H13.5313C12.816 3.56763 11.7104 2.61137 10.3899 2.08082C9.06932 1.55027 7.60945 1.47581 6.24179 1.86926C4.87413 2.2627 3.67699 3.10152 2.84025 4.25267C2.00351 5.40382 1.57507 6.80139 1.62288 8.22371C1.6707 9.64604 2.19204 11.0117 3.10421 12.104C4.01638 13.1964 5.26716 13.9529 6.65815 14.2536C8.04915 14.5543 9.50072 14.382 10.7826 13.7639C12.0646 13.1459 13.1034 12.1175 13.7345 10.8419C13.7807 10.7471 13.8453 10.6623 13.9245 10.5925C14.0037 10.5227 14.0959 10.4693 14.1958 10.4353C14.2958 10.4013 14.4014 10.3874 14.5068 10.3944C14.6121 10.4014 14.715 10.4292 14.8095 10.4762C14.904 10.5232 14.9883 10.5884 15.0575 10.6681C15.1267 10.7478 15.1795 10.8404 15.2127 10.9406C15.246 11.0408 15.2591 11.1465 15.2513 11.2518C15.2435 11.3571 15.2149 11.4598 15.1673 11.5539C14.3934 13.1145 13.1314 14.3799 11.5728 15.1579C10.0143 15.9358 8.24439 16.1838 6.53204 15.8642C4.8197 15.5445 3.25848 14.6747 2.08553 13.3869C0.912581 12.0991 0.192015 10.4636 0.0332898 8.72896C-0.125435 6.99429 0.286356 5.25521 1.20611 3.77591C2.12586 2.29661 3.50331 1.15793 5.12921 0.532838C6.75511 -0.0922488 8.5406 -0.169579 10.2145 0.312595C11.8883 0.794769 13.359 1.8101 14.4033 3.20434V1.59794C14.4033 1.38577 14.4875 1.18228 14.6376 1.03226C14.7876 0.882226 14.9911 0.797941 15.2033 0.797941C15.4154 0.797941 15.6189 0.882226 15.7689 1.03226C15.919 1.18228 16.0033 1.38577 16.0033 1.59794Z" fill="#4D5461"/>
+                </svg>
+
+        </button>
+            <!-- add button -->
+            <button class="btn btn-report-action">
+                <svg width="14" height="3" viewBox="0 0 14 3" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.294 2.55682C11.9437 2.55682 11.643 2.43134 11.392 2.1804C11.1411 1.92945 11.0156 1.62879 11.0156 1.27841C11.0156 0.928031 11.1411 0.627368 11.392 0.376421C11.643 0.125474 11.9437 0 12.294 0C12.6444 0 12.9451 0.125474 13.196 0.376421C13.447 0.627368 13.5724 0.928031 13.5724 1.27841C13.5724 1.51042 13.5133 1.72349 13.3949 1.91761C13.2812 2.11174 13.1274 2.26799 12.9332 2.38636C12.7438 2.5 12.5308 2.55682 12.294 2.55682Z" fill="#4D5461"/>
+                    <path d="M6.78622 2.55682C6.43584 2.55682 6.13518 2.43134 5.88423 2.1804C5.63329 1.92945 5.50781 1.62879 5.50781 1.27841C5.50781 0.928031 5.63329 0.627368 5.88423 0.376421C6.13518 0.125474 6.43584 0 6.78622 0C7.1366 0 7.43726 0.125474 7.68821 0.376421C7.93916 0.627368 8.06463 0.928031 8.06463 1.27841C8.06463 1.51042 8.00544 1.72349 7.88707 1.91761C7.77344 2.11174 7.61956 2.26799 7.42543 2.38636C7.23603 2.5 7.02296 2.55682 6.78622 2.55682Z" fill="#4D5461"/>
+                    <path d="M1.27841 2.55682C0.92803 2.55682 0.627367 2.43134 0.37642 2.1804C0.125474 1.92945 0 1.62879 0 1.27841C0 0.928031 0.125474 0.627368 0.37642 0.376421C0.627367 0.125474 0.92803 0 1.27841 0C1.62879 0 1.92945 0.125474 2.1804 0.376421C2.43134 0.627368 2.55682 0.928031 2.55682 1.27841C2.55682 1.51042 2.49763 1.72349 2.37926 1.91761C2.26562 2.11174 2.11174 2.26799 1.91761 2.38636C1.72822 2.5 1.51515 2.55682 1.27841 2.55682Z" fill="#4D5461"/>
+                    </svg>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="report-section">
+        <div class="table-responsive">
+            <div class="filter-section d-flex row">
+                <input type="text" name="company-name" id="company-name" placeholder="Company Name" class="filter form-control mr-3">
+                <input type="text" name="voyage-no" id="voyage-no" placeholder="Voyage No." class="filter form-control mr-3">
+                <input type="date" name="from-date" id="from-date" placeholder="From Date" class="filter form-control mr-3">
+                <input type="date" name="to-date" id="to-date" placeholder="To Date" class="filter form-control mr-3">
+            </div>
+
+
+            <div class="report-summary" style=""><div class="summary-item">
+                <span class="summary-label">Total Income This Year</span>
+                <div class="summary-value ">$ 150,000.00</div>
+            </div><div class="summary-separator">
+                    <div class="summary-value text-muted">-</div>
+                </div><div class="summary-item">
+                <span class="summary-label">Total Expense This Year</span>
+                <div class="summary-value ">$ 50,248.00</div>
+            </div><div class="summary-separator">
+                    <div class="summary-value blue">=</div>
+                </div><div class="summary-item">
+                <span class="summary-label">Profit This Year</span>
+                <div class="summary-value green">$ 99,752.00</div>
+            </div></div>
+
+
+            <canvas id="profit-loss-chart" height="90dWh"></canvas>
+
+
+
+        </div>
+        
+
+    </div>
+        
+
+
+</div>
+{% endblock %}

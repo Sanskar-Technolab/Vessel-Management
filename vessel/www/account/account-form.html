@@ -1,0 +1,94 @@
+{% extends "/templates/dashboard.html" %}
+
+{% block head_include %}
+    <link rel="stylesheet" href="/assets/vessel/css/form.css" />
+    <script src="/assets/vessel/js/form.js"></script>
+    <script src="/assets/vessel/js/account.js"></script>
+{% endblock %}
+
+{% block page_content %}
+<div class="page-area">
+    <div class="page-title d-flex">
+        <h4>New Account</h4>
+        <button class="btn save-btn" id="save">Save</button>
+    </div>
+
+    <form class="form-section">
+        <div class="form-area">
+                        <div class="form-row">
+                            <div class="col-md-6 col-xl-4 mb-4">
+                              <input type="checkbox" id="is_group" name="is_group">
+                              <label for="id-group">Is Group</label>
+                            </div>
+                         
+                            <div class="col-md-6 col-xl-4 mb-4">
+                              <label for="company">Company <span class="red">*</span></label>
+                              <select class="custom-select form-control" id="company" name="company">
+                                  <option selected></option>
+    
+                              </select>
+                            </div>
+
+                            <div class="col-md-6 col-xl-4 mb-4">
+                              <label for="account_name">Account Name <span class="red">*</span></label>
+                              <input type="text" class="form-control" id="account_name" name="account_name" placeholder="Enter Account Name" required>
+                            </div>
+                        
+                        <div class="col-md-6 col-xl-4 mb-4" id="parent_account_input">
+                          <label for="language">Parent Account <span class="red">*</span></label>
+                          <select class="custom-select form-control" id="parent_account" name="parent_account">
+                              <option selected></option>
+
+                          </select>
+                        </div>
+        
+                        <div class="col-md-6 col-xl-4 mb-4">
+                          <label for="account_type">Account Type <span class="red">*</span></label>
+                          <select class="form-control" id="account_type" name="account_type">
+                              <option selected></option>
+                              <option value="Accumulated Depreciation">Accumulated Depreciation</option>
+                              <option value="Asset Received But Not Billed">Asset Received But Not Billed</option>
+                              <option value="Bank">Bank</option>
+                              <option value="Cash">Cash</option>
+                              <option value="Chargeable">Chargeable</option>
+                              <option value="Cost of Goods Sold">Cost of Goods Sold</option>
+                              <option value="Current Asset">Current Asset</option>
+                              <option value="Current Liability">Current Liability</option>
+                              <option value="Depreciation">Depreciation</option>
+                              <option value="Direct Expense">Direct Expense</option>
+                              <option value="Direct Income">Direct Income</option>
+                              <option value="Equity">Equity</option>
+                              <option value="Expense Account">Expense Account</option>
+                              <option value="Expenses Included In Asset Valuation">Expenses Included In Asset Valuation</option>
+                              <option value="Expenses Included In Valuation">Expenses Included In Valuation</option>
+                              <option value="Fixed Asset">Fixed Asset</option>
+                              <option value="Income Account">Income Account</option>
+                              <option value="Indirect Expense">Indirect Expense</option>
+                              <option value="Indirect Income">Indirect Income</option>
+                              <option value="Liability">Liability</option>
+                              <option value="Payable">Payable</option>
+                              <option value="Receivable">Receivable</option>
+                              <option value="Round Off">Round Off</option>
+                              <option value="Stock">Stock</option>
+                              <option value="Stock Adjustment">Stock Adjustment</option>
+                              <option value="Stock Received But Not Billed">Stock Received But Not Billed</option>
+                              <option value="Service Received But Not Billed">Service Received But Not Billed</option>
+                              <option value="Tax">Tax</option>
+                              <option value="Temporary">Temporary</option>
+                              
+                          </select>
+                      </div>
+
+                        <div class="col-md-6 col-xl-4 mb-4">
+                          <label for="currency">Currency <span class="red">*</span></label>
+                          <select class="form-control" id="currency" name="account_currency">
+                              <option></option>
+                          </select>
+                      </div>
+
+                    </div>
+
+        </form>
+
+</div>
+{% endblock %}

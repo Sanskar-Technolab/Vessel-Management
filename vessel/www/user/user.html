@@ -1,0 +1,137 @@
+{% extends "/templates/dashboard.html" %}
+
+{% block head_include %}
+    <link rel="stylesheet" href="/assets/vessel/css/form.css" />
+    <script src="/assets/vessel/js/form.js"></script>
+    <script src="/assets/vessel/js/user.js"></script>
+    
+{% endblock %}
+
+{% block page_content %}
+<div class="page-area">
+    <div class="page-title d-flex   ">
+        <h4>New User</h4>
+        
+        <button class="btn save-btn" id="save">Save</button>
+    </div>
+
+    <form class="form-section">
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="basic-info" data-toggle="tab" data-target="#basicinfo" type="button" role="tab" aria-controls="basic-info" aria-selected="true">Basic Info</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="more-info" data-toggle="tab" data-target="#moreinfo" type="button" role="tab" aria-controls="more-info" aria-selected="false">More Info</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="form-tab">
+            <div class="tab-pane fade show active" id="basicinfo" role="tabpanel" aria-labelledby="basic-info">
+              <div class="inner-form-section row">
+                    <!-- sidebar image -->
+                    <div class="col-sm-12 col-md-3 col-lg-2 justify-content-center d-flex align-content-start">
+                        <div class="upload-profile-image">
+                          <div class="edit-profile-image">
+                              <input type='file' id="upload-image" accept=".png, .jpg, .jpeg" />
+                              <label for="upload-image">
+                                <img src="/assets/vessel/files/images/edit.png" alt="edit">
+                              </label>
+                          </div>
+                          <div class="profile-image-preview">
+                              <div id="image-preview" style="background-image: url(/assets/vessel/files/images/default_user.jpg);">
+                              </div>
+                          </div>
+                      </div>
+
+                    </div>
+                    <div class="col-sm-12 col-md-9 col-lg-10">
+                        <div class="form-row">
+                            <div class="col-md-6 col-xl-4 mb-4">
+                              <label for="first-name">First Name <span class="red">*</span></label>
+                              <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter First Name" >
+                            </div>
+                            <div class="col-md-6 col-xl-4 mb-4">
+                              <label for="middle-name">Middle Name</label>
+                              <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Enter Middle Name" >
+                            </div>
+                            <div class="col-md-6 col-xl-4 mb-4">
+                              <label for="last-name">Last Name</label>
+                              <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" >
+                            </div>
+                        
+
+                        <div class="col-md-6 col-xl-4 mb-4">
+                          <label for="email">Email <span class="red">*</span></label>
+                          <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email Address" >
+                        </div>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                          <label for="user-name">User Name</label>
+                          <input type="text" class="form-control" id="user-name" name="username" placeholder="Enter User Name" >
+                        </div>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                          <label for="password">Password</label>
+                          <input type="password" class="form-control" id="password" name="new_password" placeholder="********" >
+                        </div>
+
+
+                        <div class="col-md-6 col-xl-4 mb-4">
+                          <label for="language">Language</label>
+                          <select class="custom-select form-control" id="language" name="language">
+                              <option selected></option>
+                              <option value="en">English</option>
+                              <option value="Gujarati">Gujarati</option>
+                          </select>
+                      </div>
+
+                        <div class="col-md-6 col-xl-4 mb-4">
+                          <label for="status">Status</label>
+                          <select class="custom-select form-control" id="status" name="enabled">
+                              <option value="1" selected>Active</option>
+                              <option value="0">Inactive</option>
+                          </select>
+                      </div>
+
+                        
+                      </div>
+                    </div>
+                  </div>
+                  
+            </div>
+
+            <div class="tab-pane fade " id="moreinfo" role="tabpanel" aria-labelledby="more-info">
+
+                
+                    <div class="form-row">
+                        <div class="col-md-4 mb-4">
+                          <label for="phone">Phone</label>
+                          <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter Phone No" >
+                        </div>
+                        <div class="col-md-4 mb-4">
+                          <label for="mobile">Mobile</label>
+                          <input type="text" class="form-control" id="mobile" name="mobile_no" placeholder="Enter Mobile No" >
+                        </div>
+                        <div class="col-md-4 mb-4">
+                          <label for="date-of-birth">Date of Birth</label>
+                          <input type="date" class="form-control" id="birth_date" name="birth_date">
+                        </div>
+                  
+                        <div class="col-md-8 mb-4">
+                          <label for="location">Location</label>
+                          <input type="text" class="form-control" id="location" name="location" placeholder="Enter Location" >
+                        </div>
+                        <div class="col-md-4 mb-4">
+                          <label for="state">State</label>
+                          <input type="text" class="form-control" id="state" name="interest" placeholder="Enter State" >
+                        </div>
+                        <!-- for set role profile default -->
+                        <input type="hidden" name="role_profile_name" value="Admin">
+                      </div>
+                
+
+            </div>
+          </div>
+
+        </form>
+
+</div>
+{% endblock %}

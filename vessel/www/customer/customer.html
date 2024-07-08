@@ -1,0 +1,162 @@
+{% extends "/templates/dashboard.html" %}
+
+{% block head_include %}
+    <link rel="stylesheet" href="/assets/vessel/css/form.css" />
+    <script src="/assets/vessel/js/form.js"></script>
+    <script src="/assets/vessel/js/customer.js"></script>
+    
+{% endblock %}
+
+{% block page_content %}
+<div class="page-area">
+    <div class="page-title d-flex   ">
+        <h4>New Customer</h4>
+        <button class="btn save-btn" id="save">Save</button>
+    </div>
+
+    <form class="form-section">
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="details" data-toggle="tab" data-target="#customer-details" type="button" role="tab" aria-controls="customer-details" aria-selected="true">Details</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="accounts" data-toggle="tab" data-target="#customer-accounts" type="button" role="tab" aria-controls="customer-accounts" aria-selected="false">Accounts</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="form-tab">
+            <div class="tab-pane fade show active" id="customer-details" role="tabpanel" aria-labelledby="customer-details">
+              <div class="inner-form-section row">
+                    <!-- sidebar image -->
+                    <div class="col-sm-12 col-md-3 col-lg-2 justify-content-center d-flex align-content-start">
+                        <div class="upload-profile-image">
+                          <div class="edit-profile-image">
+                              <input type='file' id="upload-image" accept=".png, .jpg, .jpeg" />        
+                              <label for="upload-image">
+                                <img src="/assets/vessel/files/images/edit.png" alt="edit">
+                              </label>
+                          </div>
+                          <div class="profile-image-preview">
+                            <div id="image-preview" style="background-image: url(/assets/vessel/files/images/default_user.jpg);">
+                              </div>
+                          </div>
+                      </div>
+
+                    </div>
+                    <div class="col-sm-12 col-md-9 col-lg-10">
+                        <div class="form-row">
+                            <div class="col-md-6 col-xl-4 mb-4">
+                              <label for="customer_name">Customer Name <span class="red">*</span></label>
+                              <input type="text" class="form-control" id="customer_name" name="customer_name" placeholder="Enter Customer Name" >
+                            </div>
+                            <div class="col-md-6 col-xl-4 mb-4">
+                                <label for="customer_type">Customer Type <span class="red">*</span></label>
+                                <select class="custom-select form-select selectpicker" id="customer_type" name="customer_type" >
+                                    <option selected></option>
+                                    <option value="Company">Company</option>
+                                    <option value="Individual">Individual</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-xl-4 mb-4">
+                                <label for="country">Country</label>
+                                <select class="form-select custom-select" id="country" name="custom_country" data-searchable="true">
+                                    <option></option>
+                                </select>
+                            </div>
+                        
+
+                        <div class="col-md-6 col-xl-4 mb-4">
+                          <label for="person_in_charge">Person In Charge</label>
+                          <input type="text" class="form-control" id="person_in_charge" name="custom_person_in_charge" placeholder="Enter Person In Charge" >
+                        </div>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                          <label for="remarks">Remarks</label>
+                          <input type="text" class="form-control" id="remarks" name="custom_remarks" placeholder="Enter Remarks" >
+                        </div>
+                        <div class="col-md-6 col-xl-4 mb-4">
+                            <label for="status">Status</label>
+                            <select class="custom-select form-select form-control" id="status" name="disabled">
+                                <option value="0">Active</option>
+                                <option value="1">Inactive</option>
+                            </select>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr>
+                  <!-- contact Details -->
+                  
+                    <div class="form-section-title">
+                            Contact Details
+                    </div>
+
+                    <div class="contact-details row">
+                        <!-- address details -->
+                        <div class=" col-lg-12 col-xl-4 details-area">
+                            <label>Address</label>
+                            <textarea name="custom_address" id="address" placeholder="132, My Street, Kingston, New York"></textarea>
+                        </div>
+                        <!-- phone details -->
+                        <div class="col-lg-6 col-xl-4 details-area">
+                            <label>Phone</label>
+                            <div class="card" name="phone" id="customer_phone">
+                          
+                                    
+                                    <div class="row w-100 d-flex justify-content-between add-contact-details" id="customer_phone_input">
+                                        <input type="number" class="form-control" id="phone_no_value" placeholder="Enter Phone No">
+                                        <div class="btn btn-add" id="add_phone">+ Add Phone</div>
+                                    </div>
+                             
+                            </div>
+                            
+                        </div>
+
+                        <!-- email details -->
+                        <div class="col-lg-6 col-xl-4 details-area">
+                            <label>Email</label>
+                            <div class="card" id="customer_email" name="phone">
+                          
+                                    
+                                    <div class="row w-100 d-flex justify-content-between add-contact-details" id="customer_email_input">
+                                        <input type="email" id="email_address_value" class="form-control" placeholder="Enter Email Address">
+                                        <div class="btn btn-add" id="add_email">+ Add Email</div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+            </div>
+
+            <div class="tab-pane fade" id="customer-accounts" role="tabpanel" aria-labelledby="customer-accounts">
+        
+                <div class="table-responsive-lg">
+                    <table class="table w-100" name="customer_account">
+                        <thead>
+                        <thead>
+                            <tr>
+                                <th class="check"> <input type="checkbox" class="checkall" name="checkall" /></th>
+                                <th class="company-heading">Company <span class="red">*</span></th>
+                                <th class="account-heading">Account <span class="red">*</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="account_table">
+                            <tr id="empty_table"></tr>
+                            
+                        </tbody>
+
+                    </table>   
+                    <div class="row float-right">
+                        <div class="btn btn-delete flex-start" id="delete_row">+ Delete Row</div> 
+                        <div class="btn btn-add ml-3" id="add_new_row">+ Add Row</div> 
+                    </div>
+                    </div>
+            
+            
+          </div>
+
+        </form>
+
+</div>
+{% endblock %}

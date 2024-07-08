@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- bootstrap cdn -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+
+    <!-- login style  -->
+    <link rel="stylesheet" href="/assets/vessel/css/login.css">
+
+    <!-- font family -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Rasa:wght@500&display=swap" rel="stylesheet">
+
+    <!-- jquery cdn -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+
+<!-- login form start -->
+
+<div class="container col-xs-10 col-sm-10 col-md-8 col-xl-5 login-container">
+    <div class="row login-form">
+        <div class="col-md-6 login-form-section">
+            <div>
+                <div class="login-sm-title">Login to</div>
+                <div class="login-title">Vessel Voyage</div>
+            </div>
+            <form>
+                <!-- username -->
+                <div class="form-group">
+                    <label for="username">User Name:</label>
+                    <input type="email" class="form-control" id="username" placeholder="email@vesselvoyage.com">
+                    
+                </div>
+               <!-- password -->
+                <div class="form-group mt-4">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control password" id="password" placeholder="********">
+                    <span class="show-hide-password">show</span>
+                    
+                </div>
+                <!-- forget password -->
+                <div class="form-group text-right">
+                    <a href="/login/forget" class="forget-password">Forget Password?</a>
+                </div>
+                <!-- submit button -->
+                <div class="form-group">
+                    <input type="submit" class="btn btn-lg btn-block btn-login" id="login" value="Login" />
+                </div>
+                
+            </form>
+        </div>
+        <div class="col-md-6 vessel-login-image">
+           
+        </div>
+    </div>
+</div>
+<!-- login form start -->
+
+<!-- javascript links-->
+<script rel="preload" src="/assets/vessel/js/login.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends "/templates/dashboard.html" %}
+
+{% block head_include %}
+    <link rel="stylesheet" href="/assets/vessel/css/form.css" />
+    <script src="/assets/vessel/js/form.js"></script>
+    <script src="/assets/vessel/js/updatecompany.js"></script>
+{% endblock %}
+
+{% block page_content %}
+<div class="page-area">
+    <div class="page-title d-flex">
+        <h4 id="page_title"></h4>
+        <button class="btn save-btn" id="save">Save</button>
+    </div>
+
+    <form class="form-section">
+        <div class="form-area">
+                        <div class="form-row">
+                            <div class="col-md-6 col-xl-4 mb-4">
+                              <label for="company">Company <span class="red">*</span></label>
+                              <input type="text" class="form-control" id="company" readonly>
+                            </div>
+                            <div class="col-md-6 col-xl-4 mb-4">
+                              <label for="country">Country</label>
+                              <select class="form-select form-control" id="country" name="country" >
+                                  <option selected></option>
+                              </select>
+                            </div>
+                            <div class="col-md-6 col-xl-4 mb-4">
+                              <label for="currency">Default Currency</label>
+                              <select class="form-select form-control" id="currency" name="default_currency" readonly>
+                                  <option selected></option>
+                              </select>
+                            </div>
+                           
+                    </div>
+
+        </form>
+
+</div>
+{% endblock %}

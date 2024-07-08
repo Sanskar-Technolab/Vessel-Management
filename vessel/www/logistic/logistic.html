@@ -1,0 +1,121 @@
+{% extends "/templates/dashboard.html" %} 
+
+{% block head_include %}
+    
+{% endblock %}
+
+{% block page_content %}
+<!-- page content -->
+<div class="page-area">
+    <!-- Master section -->
+  <div class="page-title">
+    <h4>Masters</h4>
+  </div>
+  <div class="page-container">
+    <!-- cards -->
+    <div class="row page-cards">
+      <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+        <div class="card-img col-3 col-sm-2 col-md-3">
+          <img src="/assets/vessel/files/images/user-card.png" alt="user" />
+        </div>
+        <div class="col-9 col-sm-10 col-md-9 card-content">
+          <h5>Vessel</h5>
+          <span class="card-description">Create a new vessel</span>
+        </div>
+      </div>
+
+      <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+        <div class="card-img col-3 col-sm-2 col-md-3">
+          <img src="/assets/vessel/files/images/roles-card.png" alt="user" />
+        </div>
+        <div class="col-9 col-sm-10 col-md-9 card-content">
+          <h5>Vessel Type</h5>
+          <span class="card-description">Create a new vessel Type</span>
+        </div>
+      </div>
+
+      <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+        <div class="card-img col-3 col-sm-2 col-md-3">
+          <img
+            src="/assets/vessel/files/images/permissions-card.png"
+            alt="user"
+          />
+        </div>
+        <div class="col-9 col-sm-10 col-md-9 card-content">
+          <h5>Expense Master</h5>
+          <span class="card-description">Add Expense type </span>
+        </div>
+      </div>
+
+      <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+        <div class="card-img col-3 col-sm-2 col-md-3">
+          <img
+            src="/assets/vessel/files/images/port-card.png"
+            alt="user"
+          />
+        </div>
+        <div class="col-9 col-sm-10 col-md-9 card-content">
+          <h5>Port</h5>
+          <span class="card-description">Add Port</span>
+        </div>
+      </div>
+
+      <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+        <div class="card-img col-3 col-sm-2 col-md-3">
+          <img
+            src="/assets/vessel/files/images/customer-card.png"
+            alt="user"
+          />
+        </div>
+        <div class="col-9 col-sm-10 col-md-9 card-content">
+          <h5>Customer</h5>
+          <span class="card-description">Add Customer</span>
+        </div>
+        <!-- redirect url stretched link -->
+        <a class="stretched-link" href="/logistic/customer  "></a>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+    <!-- Transactions section -->
+    <div class="page-title">
+        <h4>Transactions</h4>
+    </div>
+    <div class="page-container">
+
+          <!-- cards -->
+    <div class="row page-cards">
+      <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+        <div class="card-img col-3 col-sm-2 col-md-3">
+          <img src="/assets/vessel/files/images/voyage-estimation-card.png" alt="user" />
+        </div>
+        <div class="col-9 col-sm-10 col-md-9 card-content">
+          <h5>Voyage Estimation</h5>
+          <span class="card-description">Add Voyage Parameter</span>
+        </div>
+      </div>
+
+      <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+        <div class="card-img col-3 col-sm-2 col-md-3">
+          <img
+            src="/assets/vessel/files/images/voyage-begins-card.png"
+            alt="user"
+          />
+        </div>
+        <div class="col-9 col-sm-10 col-md-9 card-content">
+          <h5>Voyage Begins</h5>
+          <span class="card-description">Add Voyage Begins</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+        
+    </div>
+
+
+</div>
+
+{% endblock %}

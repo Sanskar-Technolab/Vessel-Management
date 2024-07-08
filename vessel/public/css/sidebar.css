@@ -1,0 +1,136 @@
+
+body{
+  font-family: "Inter", sans-serif;
+  
+}
+html, body {
+  height: 100%;
+  width : 100%;
+  margin: 0;
+  padding: 0;
+  transition: none;
+}
+/* sidebar */
+#sidebar {
+  position: fixed;
+  width: 200px;
+  height: 100%;
+  /* transition: all 0.2s; */
+  background: #ffffff;
+  border-right: 1px solid #E6EFF5;
+}
+#sidebar.active{
+ max-width: 60px!important;
+}
+
+/* sidebar header */
+#sidebar .sidebar-header {
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+#sidebar .sidebar-header .navbar-brand img
+{
+  width: 60px;
+}
+.active .sidebar-header{
+  padding-left: 30px!important;
+}
+.active .sidebar-header img{
+  width: 40px!important;
+}
+/* sidebar list items */
+#sidebar ul li{
+  align-items: center;
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color:#1814F3;
+  /* transition: all 0.3s; */
+}
+svg{
+  /* transition: all 0.3s; */
+}
+#sidebar .sidebar-icon svg{
+  /* transition: all 0.3s; */
+  left:20px;
+}
+.sidebar-item-title{
+  font-size: 18px;
+  font-weight: 600;
+  color:#B1B1B1;
+  padding: 10px;
+}
+
+/* active page highlit effect */
+#sidebar .active-page:before{
+  opacity: 1;
+  color:#1814F3;
+  background-color: #1814F3; 
+}
+#sidebar .active-page svg{
+  fill: #1814F3;
+}
+#sidebar ul .active-page .sidebar-item-title{
+  color:#1814F3;
+  text-decoration: none;
+}
+
+#sidebar ul li:before{
+  margin-right: 17px;
+  /* transition: all 0.35s ease; */
+  top: 0;
+  display: block;
+  height: 50px;
+  width: 3%;
+  content: "";
+  color: #1814F3;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+#sidebar ul li:hover svg{
+  fill: #1814F3;
+}
+#sidebar ul li:hover .sidebar-item-title{
+  color:#1814F3;
+  text-decoration: none;
+}
+#sidebar ul li:hover:before{
+  opacity: 1;
+  color:#1814F3;
+  background-color: #1814F3;            
+}
+/* hide menus sidebar is collapse */
+.active li .sidebar-item-title{
+  display: none;
+}
+
+/* sidebar collapse section */
+#sidebarcollapse{
+  position: fixed;
+  bottom: 30px;
+  cursor: pointer;
+  margin-left: 20px;
+  /* transition: display 0.3s ease; */
+}
+.active #sidebarcollapse{
+  transform: rotateY(180deg)
+}
+.active .collapse-title{
+  display: none;
+  /* transition: all 0.3s ease; */
+}
+
+/* responsive */
+/* < 992 */
+.sidebar-collapse .navbar-brand{
+
+}
+
+/* responsive */
+@media screen and (max-width:1024px){
+    #sidebar{
+      max-width: 60px!important;
+    }
+}

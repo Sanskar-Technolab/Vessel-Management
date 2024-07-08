@@ -1,0 +1,89 @@
+{% extends "/templates/dashboard.html" %}
+
+{% block head_include %}
+    <link rel="stylesheet" href="/assets/vessel/css/form.css" />
+    <script src="/assets/vessel/js/form.js"></script>
+    <script src="/assets/vessel/js/payment-entry.js"></script>
+{% endblock %}
+
+{% block page_content %}
+<div class="page-area">
+    <div class="page-title d-flex">
+        <h4>New Payment Entry</h4>
+        <button class="btn save-btn" id="save">Save</button>
+    </div>
+
+    <form class="form-section">
+    <div class="form-area">
+        <div class="form-row">
+                <div class="col-md-6 col-xl-4 mb-4">
+                <label for="company">Company<span class="red">*</span></label>
+                <select id="company" class="party custom-select form-control" name="company">
+                    <option></option>
+                 </select>
+                </div>
+                <div class="col-md-6 col-xl-4 mb-4">
+                    <label for="mode_of_payment">Mode of Payment<span class="red">*</span></label>
+                    <select id="mode_of_payment" class="party custom-select form-control" name="mode_of_payment">
+                        <option></option>
+                     </select>
+                </div>
+                <div class="col-md-6 col-xl-4 mb-4">
+                    <label for="posting_date">Posting Date<span class="red">*</span></label>
+                    <input type="date" class="form-control" id="posting_date" name="posting_date">
+                </div>
+                
+        </div>
+
+        <hr>
+        <!-- contact Details -->
+        
+          <div class="form-section-title mb-3">
+                Payment Entries
+          </div>
+
+          <div class="table-responsive-lg">
+            <table class="table w-100" id="table">
+                <thead>
+                <thead>
+                    <tr>
+                        <th class="check"> <input type="checkbox" class="checkall" name="checkall" /></th>
+                        <th class="account-heading" style="width: 300px;">Party</th>
+                        <th class="company-heading" style="width: 300px;">Account Type<span class="red">*</span></th>
+                        <th class="account-heading" style="width: 200px;">Debit<span class="red">*</span></th>
+                        <th class="account-heading" style="width: 200px;">Credit<span class="red">*</span></th>
+                        <th class="account-heading" style="width: 300px;">Description</th>
+                        <th class="account-heading">Attachmemt<span class="red">*</span></th>
+                    </tr>
+                </thead>
+                <tbody id="payment_entry_details">
+                   
+                    <tr id="empty_table"></tr>
+                </tbody>
+
+            </table>   
+            <div class="row float-right">
+                <div class="btn btn-delete flex-start" id="delete_row">+ Delete Row</div> 
+                <div class="btn btn-add ml-3" id="add_new_row">+ Add Row</div> 
+            </div>       
+            
+            </div>
+
+            <div class="row" style="margin-top: 65px;">
+
+                <div class="col-md-6 col-xl-4 mb-4">
+                    <label for="total_debit">Total Debit</label>
+                    <input type="text" class="form-control" id="total_debit" value="0" disabled>
+                </div>
+                <div class="col-md-6 col-xl-4 mb-4">
+                    <label for="total_credit">Total Credit</label>
+                    <input type="text" class="form-control" id="total_credit" value="0" disabled>
+                </div>
+            </div>
+
+    </div>
+
+        </form>
+
+</div>
+{% endblock %}

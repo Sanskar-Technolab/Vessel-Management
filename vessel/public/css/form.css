@@ -1,0 +1,454 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* save button */
+/* cancel button */
+/* submit button */
+.save-btn,
+.btn-cancel,
+.btn-submit {
+    background: #1814F3;
+    color: #fff;
+    font-weight: 600;
+    width: 120px;
+    height: 45px;
+    font-size: 20px;
+    border-radius: 8px;
+}
+
+.save-btn:hover,
+.btn-cancel:hover,
+.btn-submit:hover {
+    color: #fff;
+}
+
+/* add button */
+.btn-add {
+    font-weight: 600;
+    height: 48px;
+    font-size: 16px;
+    border-radius: 8px;
+    color: #1814F3;
+    border: 1px solid #F2F4F7;
+    align-items: center;
+    display: flex;
+}
+
+.btn-add:hover {
+    color: #1814F3;
+    border-color: #1814F3;
+}
+
+.btn:focus {
+    box-shadow: none;
+}
+
+/* attach button */
+.btn-attach {
+    padding: 10px;
+    font-weight: 500;
+    height: 38px;
+    font-size: 14px;
+    border-radius: 8px;
+    color: #1814F3;
+    border: 1px solid #e6e6e6;
+    align-items: center;
+    display: flex;
+}
+
+/* hidden choose file */
+.choose-file {
+    display: none;
+}
+
+/* dialog button */
+.btn-dialog {
+    background: #1814F3;
+    color: #fff;
+    font-weight: 600;
+    min-width: 120px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+.btn-dialog:hover {
+    color: #fff;
+    border-color: #1814F3;
+}
+
+/* delete button */
+.btn-delete {
+    font-weight: 600;
+    height: 48px;
+    font-size: 16px;
+    border-radius: 8px;
+    color: #ec645e;
+    border: 1px solid #ffdad8;
+    align-items: center;
+    display: flex;
+}
+
+.btn-delete:hover {
+    color: #ec645e;
+    border-color: #ec645e;
+}
+
+/* action button */
+.btn-form-action {
+    width: 36px;
+    height: 38px;
+    border: 1px solid #B7C1C8;
+    padding: 0;
+    border-radius: 8px;
+}
+
+
+
+
+/* form start */
+
+.form-section {
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 25px;
+    min-height: calc(100dvh - 185px);
+}
+
+.form-section hr {
+    padding: 0;
+}
+
+.form-section .form-section-title {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: left;
+    color: #343C6A;
+}
+
+.form-section .nav-tabs .nav-link {
+    border: none;
+    color: #718EBF;
+    background-color: transparent;
+    padding: 16px;
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: 500;
+
+}
+
+.form-section .nav-tabs .nav-link.active {
+    border-bottom: 3px solid #1814F3;
+    color: #1814F3;
+}
+
+/* dialog box */
+.modal .modal-content {
+    border: none;
+    border-radius: 8px;
+}
+
+
+/* moreinfo tab*/
+.tab-pane,
+.form-area {
+    padding: 30px;
+}
+
+/* form inputs ans forms sections */
+.form-row>.col,
+.form-row>[class*=col-] {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.form-row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.form-control {
+    height: 50px;
+    border-radius: 8px;
+}
+
+.form-select {
+    border: 1px solid #DFEAF2 !important;
+    border-radius: 8px !important;
+    height: 50px;
+}
+
+.tab-select {
+    border: none !important;
+    height: 30px !important;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-select.focus {
+    border-color: #1814F3 !important;
+    box-shadow: none !important;
+}
+
+/* upload image and preview */
+
+.upload-profile-image {
+    position: relative;
+    margin-bottom: 30px;
+}
+.dropdown-item{
+    cursor: pointer;
+}
+
+.edit-profile-image {
+    position: absolute;
+    top: 85px;
+    z-index: 1;
+    left: 100px;
+}
+.edit-profile-image label{
+    margin-bottom: 0;
+}
+
+.inner-form-section #upload-image {
+    display: none;
+}
+
+
+.profile-image-preview {
+    width: 132px;
+    height: 132px;
+    position: relative;
+    border-radius: 100%;
+}
+
+.profile-image-preview #image-preview {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+
+
+/* contact details section */
+.contact-details .details-area {
+    margin-top: 30px;
+}
+
+.contact-details .details-area textarea {
+    width: 100%;
+    padding: 10px;
+    min-height: 100px;
+    border-radius: 8px;
+    color: #4D5461;
+    outline: none;
+    border: 1px solid #DFEAF2;
+}
+
+.contact-details .details-area label {
+    color: #232323;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.contact-details .details-area .card {
+    border: 1px solid #DFEAF2;
+    border-radius: 8px;
+    flex-direction: column;
+    margin-top: 0;
+    padding: 0;
+}
+
+.contact-details .details-area .card .row {
+    padding: 15px;
+    border-bottom: 1px solid #F2F4F7;
+}
+
+.contact-details .details-area .add-contact-details input {
+    width: calc(100% - 130px);
+    height: 48px;
+}
+
+
+/* account table */
+.form-section table {
+    border: 1px solid #B7C1C8;
+    border-radius: 16px !important;
+    ;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: scroll;
+}
+
+.form-section table th {
+    border: none;
+    border-bottom: 1px solid #B7C1C8;
+    font-weight: 16px;
+    color: #718EBF;
+    font-weight: 500;
+}
+
+.form-section table td,
+.form-section table th {
+    border-left: 1px solid #F2F4F7;
+}
+
+.form-section table td:first-child,
+.form-section table th:first-child {
+    border-left: none;
+}
+
+.form-section table tr {
+    border: none;
+    border-bottom: 1px solid #F2F4F7;
+}
+
+.form-section table tr:last-child {
+    border-bottom: none;
+}
+
+
+.form-section .table .check {
+    width: 40px !important;
+}
+
+.form-section table .form-control {
+    border: none;
+    height: 40px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    height: 20px;
+}
+
+.company-heading {
+    width: 500px;
+
+}
+
+#payment_entry_details td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#payment_entry_details .form-control {
+    border-radius: none;
+    height: 30px;
+}
+
+#payment_entry_details select,
+input {
+    opacity: 1;
+}
+
+/* empty table  */
+#empty_table {
+    height: 100px;
+}
+
+select {
+    text-indent: 5px;
+}
+
+.custom-select {
+    padding: 0;
+}
+
+table td {
+    vertical-align: middle !important;
+}
+
+table input {
+    padding-left: 8px !important;
+}
+
+/* hide number type input arrow */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* for mandatory field */
+.red {
+    color: red;
+}
+
+/* error message */
+.error-message {
+    color: red;
+    font-size: 14px;
+}
+
+
+
+
+
+/* custom selectbpx css override */
+.ss-content {
+    height: auto !important;
+    border: solid 1px #DFEAF2 !important;
+}
+
+.ss-content .ss-search input:focus {
+    box-shadow: none;
+}
+
+.ss-content .ss-list .ss-option {
+    border-radius: 8px;
+}
+
+.ss-content .ss-list .ss-option:hover {
+    background-color: #ffffff00;
+    color: #4d4d4d;
+}
+
+/* responsive  */
+
+@media screen and (max-width:767px) {
+
+    .form-section {
+        margin-bottom: 80px;
+        height: auto;
+    }
+
+}
+
+@media screen and (max-width:576px) {
+
+    .save-btn {
+        width: 100px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+}
+
+@media screen and (max-width:576px) {
+    .save-btn {
+        width: 85px;
+        height: 35px;
+        font-size: 15px;
+    }
+}
+@media screen and (max-width:500px){
+    .contact-details .details-area .add-contact-details input {
+        width: calc(100% - 50px);
+    }
+    .add_phone,.add_email{
+        display: none;
+    }
+    #add_phone:after,#add_email:after{
+        content: "+";
+        font-size: 24px;
+    }
+}

@@ -1,0 +1,118 @@
+/* page content */
+html, body {
+    height: 100%;
+    width : 100%;
+    margin: 0;
+    padding: 0;
+    /* transition:all 0.5s; */
+ }
+
+
+.page-area{
+   position: relative;
+   width: -webkit-fill-available;
+   overflow-y: hidden;
+   padding: 20px;
+   height: 100%;
+}
+.page-area .page-title {
+    align-items: center;
+    justify-content: space-between;
+}
+.page-area .page-title h4{
+    font-weight: 600;
+    margin-bottom: 0;
+    color: #343C6A;
+}
+.page-container{
+    max-width: 90%;
+    margin-left: auto!important;
+    margin-right: auto!important;
+    justify-content: space-around;
+}
+.page-area .page-cards{
+    column-gap: 45px;
+    justify-content: start;
+}
+.card{
+    border: none;
+    border-radius: 25px;
+    padding: 20px;
+    flex-direction: row;
+    align-items: center;
+    cursor: default;
+    margin-top: 15px;
+    
+}
+.page-area .page-cards .card:hover{
+    outline: 1px solid #1814F3;
+    background: url("/assets/vessel/files/images/card-hover-arrow.png");
+    background-repeat: no-repeat;
+    background-position: 95% 20px;
+    background-color: #fff;
+}
+.card-content{
+    padding-left: 25px;
+}
+.page-cards .card .card-content h5{
+    font-weight: 600;
+}
+.page-cards .card .card-content .card-description{
+    color: #718EBF;
+}
+/* for hide any thing using js */
+.hide{ 
+    display: none;
+}
+
+/* responsive */
+@media screen and (max-width:992px){
+
+    .page-container{
+        max-width: 85%;
+    }
+}
+@media screen and (max-width:757px){
+
+    .page-area .page-cards{
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width:575px){
+    .page-cards{
+        justify-content: center!important;
+    }
+}
+
+@media screen and (max-width:450px){
+    .profile-sec .mx-4{
+        margin-left: 0.7rem!important;
+        margin-right: 0.7rem!important;
+    }
+}
+@media screen and (max-width:400px){
+    .page-area{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .page-area .page-title h4 {
+        font-size: 22px;
+    }
+    .page-cards .card .card-content h5{
+        font-size: 18px;
+    }
+    .page-cards .card .card-content .card-description{
+        font-size: 14px;
+    }
+    .page-cards .card{
+        padding: 15px;
+    }
+    .card-img{
+        padding: 0;
+    }
+    .card-content{
+        padding-right: 0;
+    }
+}
+

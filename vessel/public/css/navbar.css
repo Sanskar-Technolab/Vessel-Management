@@ -1,0 +1,240 @@
+html, body {
+    height: 100%;
+    width : 100%;
+    margin: 0;
+    padding: 0;
+ }
+.page-section{
+    position: relative;
+	width: calc(100% - 200px);
+    left: 200px;
+	transition: none;
+    min-height: 100%;
+    /* overflow: auto; */
+    background: #f5f7fa;
+    
+}
+.active + .page-section{
+    width: calc(100% - 60px);
+	left: 60px;
+}
+.navbar
+{
+    top: 0;
+    width:-webkit-fill-available;
+    height: 80px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #E6EFF5;
+}
+.navbar .breadcrumbs,.navbar .breadcrumbs a{
+    font-weight: 600;
+    font-size: 18px;
+    color: #343C6A;
+    text-transform: capitalize;
+}
+.navbar .breadcrumbs .arrow{
+    color: #B7C1C8;
+}
+.navbar .breadcrumbs .last-breadcrumb{
+    pointer-events: none;
+    opacity: 0.5;
+    text-transform: none;
+}
+
+/* profile-section */
+.profile-sec{
+    /* justify-content: space-around; */
+    /* width: 30%; */
+}
+
+/* search bar */
+#search{
+    
+    background: url("/assets/vessel/files/images/search.png");
+    background-repeat: no-repeat;
+    background-position: 16px 16px;
+    background-color: #F5F7FA;
+    height: 48px;
+    width: 270px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    padding-left: 45px;
+ }
+
+
+
+ #search-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    width: 270px;
+    border-radius: 10px;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    /* overflow-y: auto; */
+    z-index: 1000;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+#search-results li {
+    padding: 10px;
+    width: 270px;
+    cursor: pointer;
+    
+}
+
+#search-results li:hover {
+    background: #f0f0f0;
+}   
+
+
+ input[type="search"]::-webkit-search-cancel-button{
+     display: none; 
+    }
+  
+ .notification{
+    background-color: #F5F7FA;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+ }
+.notification img{
+    width: 30px;
+    height: 30px;
+    margin-top: 9px;
+    margin-left: 9px;
+}
+.user-profile img{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+#notification-area {
+    min-height: 300px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    width: 270px;
+    border-radius: 10px;
+    background: white;
+    border: 1px solid #ccc;
+    /* overflow-y: auto; */
+    max-height: 300px;
+    z-index: 1000;
+    top: 65px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    right: 80px;
+    display: none; /* Initially hidden */
+}
+.notification .notify-list-item{
+    padding: 15px;
+    width: 270px;
+    cursor: pointer;
+}
+.notification .notify-list-item p{
+    font-size: 12px;
+    opacity: 0.5;
+    margin: 0;
+}
+.notification .notify-list-item:hover{
+    background: #f0f0f0;
+}
+
+
+/* dropdown */
+.dropdown-menu{
+    border-radius: 8px;
+    overflow: visible;
+    z-index: 10000!important;
+}
+.hidden{
+    display: none;
+}
+/* scroll */
+::-webkit-scrollbar {
+    width: 50px;
+  }
+
+.readonly{
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* set overlay loading time */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffffa3;
+    /* Semi-transparent black */
+    z-index: 1000;
+    /* Ensure the overlay is on top of other content */
+    display: none;
+    /* Initially hidden */
+
+}
+
+.overlay-content {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    text-align: center;
+    font-size: 22px;
+}
+
+    
+/* responsive */
+@media screen and (max-width:767px){
+    .navbar .breadcrumbs{
+        font-size: 16px;
+    }
+  }
+@media screen and (max-width:767px){
+    .breadcrumbs{
+      display: none;
+    }
+    .profile-sec{
+       margin-left: auto;
+    }
+  }
+
+  @media screen and (max-width:500px){
+    #search{
+        width: 220px;
+        height: 40px;
+        background-position: 11px 11px;
+        padding-left: 35px;
+    }
+    .notification{
+        width: 40px;
+        height: 40px;
+    }
+    .notification img {
+        width: 25px;
+        height: 25px;
+        margin-top: 7px;
+        margin-left: 7px;
+    }
+    .user-profile img {
+        width: 40px;
+        height: 40px;
+    }
+
+  }
+  @media screen and (max-width:400px){
+    .navbar{
+        padding:10px;
+    }
+    #search{
+        width: 180px;
+    }
+  }

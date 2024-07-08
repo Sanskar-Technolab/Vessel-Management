@@ -1,0 +1,64 @@
+{% extends "/templates/dashboard.html" %}
+
+{% block head_include %}
+    
+{% endblock %}
+
+{% block page_content %}
+ <!-- page content -->
+ <div class="page-area">
+    <div class="page-title">
+        <h4>Analytics</h4>
+    </div>
+    <div class="page-container">
+
+      <!-- cards -->
+      <div class="row page-cards">
+        <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+          <div class="card-img col-3 col-sm-2 col-md-3">
+              <img src="/assets/vessel/files/images/compare-expense-card.png" alt="user">
+          </div>
+          <div class="col-9 col-sm-10 col-md-9 card-content pl-3">
+              <h5>Compare Actual vs
+                Estimated Expense</h5>
+          </div>
+        </div>
+
+        <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+          <div class="card-img col-3 col-sm-2 col-md-3">
+              <img src="/assets/vessel/files/images/vessel-wise-expense-card.png" alt="user">
+          </div>
+          <div class="col-9 col-sm-10 col-md-9 card-content pl-3">
+            <h5>Vessel Wise Expense</h5>
+          </div>
+        </div>
+
+        <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+          <div class="card-img col-3 col-sm-2 col-md-3">
+              <img src="/assets/vessel/files/images/financial-summary-card.png" alt="user">
+          </div>
+          <div class="col-9 col-sm-10 col-md-9 card-content pl-3">
+            <h5>Financial Summary</h5>
+          </div>
+          <!-- redirect url stretched link -->
+        <a class="stretched-link" href="/analytics/financial-summary"></a>
+        </div>
+
+        <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+            <div class="card-img col-3 col-sm-2 col-md-3">
+                <img src="/assets/vessel/files/images/balance-summary-card.png" alt="user">
+            </div>
+            <div class="col-9 col-sm-10 col-md-9 card-content pl-3">
+              <h5>Balance Summary</h5>
+            </div>
+          </div>
+            <!-- redirect url stretched link -->
+        <a class="stretched-link" href="/analytics/balance-summary"></a>
+      </div>
+
+      
+
+    </div>
+  </div>
+    
+{% endblock %}

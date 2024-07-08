@@ -1,0 +1,55 @@
+{% extends "/templates/dashboard.html" %}
+
+{% block head_include %}
+    
+{% endblock %}
+
+{% block page_content %}
+ <!-- page content -->
+ <div class="page-area">
+    <div class="page-title">
+        <h4>User</h4>
+    </div>
+    <div class="page-container">
+
+      <!-- cards -->
+      <div class="row page-cards">
+        <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+          <div class="card-img col-3 col-sm-2 col-md-3">
+              <img src="/assets/vessel/files/images/user-card.png" alt="user">
+          </div>
+          <div class="col-9 col-sm-10 col-md-9 card-content">
+              <h5>User</h5>
+              <span class="card-description">Create a new User</span>
+          </div>
+          <!-- redirect url stretched link -->
+          <a class="stretched-link" href="/user"></a>
+        </div>
+
+        <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+          <div class="card-img col-3 col-sm-2 col-md-3">
+              <img src="/assets/vessel/files/images/roles-card.png" alt="user">
+          </div>
+          <div class="col-9 col-sm-10 col-md-9 card-content">
+            <h5>Roles</h5>
+            <span class="card-description">Create a Role for User</span>
+          </div>
+        </div>
+
+        <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+          <div class="card-img col-3 col-sm-2 col-md-3">
+              <img src="/assets/vessel/files/images/permissions-card.png" alt="user">
+          </div>
+          <div class="col-9 col-sm-10 col-md-9 card-content">
+            <h5>Permissions</h5>
+            <span class="card-description">Assign permissions to User</span>
+          </div>
+        </div>
+      </div>
+
+      
+
+    </div>
+  </div>
+    
+{% endblock %}

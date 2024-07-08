@@ -1,0 +1,231 @@
+/* refresh button */
+.btn-refresh,.btn-report-action{
+    width: 36px;
+    height: 38px;
+    border: 1px solid #B7C1C8;
+    padding: 0;
+    border-radius: 8px;
+}
+.btn:focus{
+    box-shadow: none;
+}
+
+/* report section */
+
+.report-section{
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 16px;
+    max-height: calc(100dvh - 180px);
+    overflow: auto;
+    
+
+}
+.report-section .filter-section{
+    padding: 16px;
+}
+.report-section .filter-section .filter{
+    height: 32px;
+    border:1px solid #E5EAF1;
+    border-radius: 8px;
+    padding-left: 10px;
+    background-color: #E5EAF1;
+    width: 250px;
+    margin-top: 10px;
+}
+.report-section .filter-section .form-control:focus
+{
+    border-color: #1814F3;
+    box-shadow: none;
+}
+.file_url a{
+    color: #111!important;
+}
+
+
+
+/* table section */
+.report-section table{
+    width: 100%;
+    margin-bottom: 0;
+}
+.report-section table thead tr{
+    font-weight: 500;
+    font-size: 16px;
+    color: #718EBF;
+    border-top:1px solid #B7C1C8!important;
+    border-bottom:1px solid #B7C1C8!important;
+    padding: 10px;
+}
+.report-section table td{
+    padding: 10px;
+    border-top: none;
+    vertical-align: baseline;
+    align-items: center;
+}
+.report-section table th,td{
+    border: 1px solid #F2F4F7;
+}
+.report-section table tr td:nth-child(2)
+{
+    text-align: center;
+}
+.report-section table th{
+    border-top-color: #B7C1C8;
+    border-bottom-color: #B7C1C8;
+     font-weight: 500;
+
+}
+
+.report-section table .check-box{
+    padding-left: 23px;
+    width: 52px;
+    justify-content: center;
+}
+.report-section .profile-image img{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center center;
+}
+.report-section .table-responsive .row{
+    margin: 0;
+}
+
+/* report inner filter */
+.report-filter input{
+    height: 32px;
+    border-radius: 5px;
+    background-color: #F5F7FA;
+    border: 1px solid #E5EAF1;
+}
+.report-filter .disable-report-filter{  
+    padding-left: 17px!important;
+}
+.report-filter .disable-report-filter:nth-child(2){
+    
+    padding-left: 10px!important;
+}
+.report-filter .disable-report-filter input{
+    width: 32px !important;
+}
+.report-filter .disable-report-filter input{
+    width: 0%;
+}
+.debit_data,.credit_data,.balance_data{
+    text-align: right;
+}
+
+
+
+/* filter input focus */
+.form-control:focus,
+.form-select:focus,
+.form-select.focus {
+    border-color: #1814F3 !important;
+    box-shadow: none !important;
+}
+
+.custom-select{
+    line-height: 1.2;
+}
+
+
+/* financial summary */
+
+
+.report-summary {
+    background-color: #F5F7FF;
+    border-radius: 25px;
+    border: 1px solid #B7C1C8;
+    margin: 1rem;
+    padding: 30px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 0;
+  }
+  .report-summary .summary-item {
+    margin: 0px 20px;
+    min-width: 160px;
+    max-width: 300px;
+    height: 62px;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+  }
+  .report-summary .summary-label {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #343C6A;
+  }
+  .report-summary .summary-value {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 16px;
+    color: #343C6A;
+    font-feature-settings: "tnum";
+    padding-top: 12px;
+    padding-bottom: 10px;
+    text-align: center;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .report-summary .summary-value div {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .report-summary .summary-separator {
+    margin: 5px 12px;
+  }
+  .report-summary .summary-separator .summary-value {
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #B7C1C8;
+    min-width: 40px;
+    min-height: 40px;
+    margin: 0px 30px;
+    line-height: 1;
+    display: flex;
+    place-content: center;
+  }
+  .report-summary .green {
+    color: #078E05!important;
+  }
+  .reference_id,.reference_id:hover{
+    color: #111;
+  }
+  
+
+  /* profit and loss Chart */
+canvas{
+    margin-top: 100px;
+    padding: 20px;
+    
+}
+
+
+/* responsive */
+
+@media screen and (max-width:1200px) {
+    .report-summary .summary-item {
+        margin: 0;
+    }
+    .report-summary .summary-value {
+        font-size: 25px!important;
+    }
+    .report-summary .summary-separator .summary-value{
+        min-width: 30px;
+        min-height: 30px;
+        margin: 0;
+    }
+}

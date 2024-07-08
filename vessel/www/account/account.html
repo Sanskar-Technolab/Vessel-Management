@@ -1,0 +1,57 @@
+{% extends "/templates/dashboard.html" %}
+
+{% block head_include %}
+    
+{% endblock %}
+
+{% block page_content %}
+ <!-- page content -->
+ <div class="page-area">
+    <div class="page-title">
+        <h4>Accounting</h4>
+    </div>
+    <div class="page-container">
+
+      <!-- cards -->
+      <div class="row page-cards">
+        <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+          <div class="card-img col-3 col-sm-2 col-md-3">
+              <img src="/assets/vessel/files/images/account-card.png" alt="user">
+          </div>
+          <div class="col-9 col-sm-10 col-md-9 card-content pl-3">
+              <h5>Account</h5>
+          </div>
+          <!-- redirect url stretched link -->
+        <a class="stretched-link" href="/accounts/account"></a>
+        </div>
+
+        <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+          <div class="card-img col-3 col-sm-2 col-md-3">
+              <img src="/assets/vessel/files/images/company-card.png" alt="user">
+          </div>
+          <div class="col-9 col-sm-10 col-md-9 card-content pl-3">
+            <h5>Company</h5>
+          </div>
+          <!-- redirect url stretched link -->
+        <a class="stretched-link" href="/accounts/company"></a>
+        </div>
+
+        <div class="card row col-12 col-md-6 col-lg-6 col-xl-4">
+          <div class="card-img col-3 col-sm-2 col-md-3">
+              <img src="/assets/vessel/files/images/payment-entry-card.png" alt="user">
+          </div>
+          <div class="col-9 col-sm-10 col-md-9 card-content pl-3">
+            <h5>Payment Entry</h5>
+          </div>
+          <!-- redirect url stretched link -->
+        <a class="stretched-link" href="/accounts/payment-entry"></a>
+        </div>
+
+      </div>
+
+      
+
+    </div>
+  </div>
+    
+{% endblock %}
