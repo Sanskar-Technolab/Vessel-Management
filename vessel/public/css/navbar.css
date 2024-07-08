@@ -10,7 +10,7 @@ html, body {
     left: 200px;
 	transition: none;
     min-height: 100%;
-    /* overflow: auto; */
+    overflow: auto;
     background: #f5f7fa;
     
 }
@@ -74,7 +74,7 @@ html, body {
     background: white;
     border: 1px solid #ccc;
     max-height: 200px;
-    /* overflow-y: auto; */
+    overflow-y: auto;
     z-index: 1000;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     display: none;
@@ -125,7 +125,7 @@ html, body {
     border-radius: 10px;
     background: white;
     border: 1px solid #ccc;
-    /* overflow-y: auto; */
+    overflow-y: auto;
     max-height: 300px;
     z-index: 1000;
     top: 65px;

@@ -78,12 +78,13 @@ $(document).ready(function () {
                 user_image = user_info.user_image
                 user_id = user_info.name
                 var user_profile_img = user_info.user_image && user_info.user_image.includes("https") ? user_info.user_image : (user_info.user_image ? window.location.origin + user_info.user_image : window.location.origin + "/assets/vessel/files/images/default_user.jpg")
-                
+                user_profile_img = encodeURI(user_profile_img)
                 user_info.user_image ? $("#remove_profile").show():$("#remove_profile").hide() //hide and show remove button
-
+                console.log(encodeURI(user_profile_img));
                 $("#page_title").html(user_info.full_name)
-                $("#user_id").val(user_info.name)
-                $('#image-preview').css('background-image', 'url(' + encodeURI(user_profile_img) + ')')
+                $("#user_id").val(user_info.name)                
+                $('#image-preview').css('background-image', 'url("' + user_profile_img + '")');
+
                 $("#first_name").val(user_info.first_name)
                 $("#middle_name").val(user_info.middle_name)
                 $("#last_name").val(user_info.last_name)
@@ -97,7 +98,7 @@ $(document).ready(function () {
                 $("#date_of_birth").val(user_info.birth_date)
                 $("#state").val(user_info.interest)
 
-
+                
 
                 var old_form_data_list = $('form').serializeArray();
 
@@ -172,7 +173,7 @@ $(document).ready(function () {
 
     // Format yesterday's date to YYYY-MM-DD
     let formattedYesterday = yesterday.toISOString().split('T')[0];
-        console.log(formattedYesterday);
+        
     // disabled dates after today
     $("#birth_date").attr('max', formattedYesterday);
     
@@ -277,8 +278,7 @@ $(document).ready(function () {
 
 
        if(isvalid){
-        console.log(isvalid);
-        console.log("IS VALID");
+       
         if (files.length > 0) {
             var file_data = files[0]
             upload_file(file_data); // Pass the first file to the upload_file function

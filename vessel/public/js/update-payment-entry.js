@@ -53,7 +53,7 @@ $(document).ready(function () {
     $("#add_new_row").click(function () {
         $('#posting_date_error').remove();
         $('#company_error').remove();
-        console.log($("#company").val());
+        
         if ($("#company").val() == "") {
             $('<span id="company_error" class="error-message">Please enter company name.</span>').insertAfter('#company');
         }
@@ -131,7 +131,7 @@ $(document).ready(function () {
             if (customer_name == "") {
                 get_bank_account(function (data) {
 
-                    console.log(data);
+                    
                     $.each(data, function (i, account) {
                         $("#" + account_id).append(`<option value="${account.name}">${account.name}</option>`)
                     })
@@ -154,7 +154,7 @@ $(document).ready(function () {
         $("#" + file_id).change(function () {
             document.getElementById(file_id).innerText=""
             var file_data = $(this)[0].files
-            console.log(file_data[0].name);
+            
             $("#" + img_attached).text(file_data[0].name.substring(0, 15) + '...')
             
             
@@ -196,7 +196,7 @@ $(document).ready(function () {
                 "company": company
             },
             success: function (data) {
-                console.log(data)
+                
                 callback(data.message)
 
             },
@@ -217,7 +217,7 @@ $(document).ready(function () {
                 "company": company
             },
             success: function (data) {
-                console.log(data)
+                
                 callback(data.message)
 
             },
@@ -336,7 +336,7 @@ $(document).ready(function () {
         dataType: "json",
 
         success: function (data) {
-            console.log(data);
+            
             var payment_entry = data.data
 
             var currency = payment_entry.total_amount_currency
@@ -388,10 +388,7 @@ $(document).ready(function () {
                 setTimeout(() => {
                     var debit_amount = currency_symbol+account.debit
                     var credit_amount = currency_symbol+account.credit
-                    
-                    console.log(debit_amount);
-                    console.log(credit_amount);
-
+                
 
                     if (account.party != "") {
                         $("#party_id" + index).val(account.party).change()
@@ -430,7 +427,7 @@ $(document).ready(function () {
                     $("#submit").remove()
                     $("#save").hide()
                     $(".action-btn-group").append(`<button class="btn save-btn" id="save">Save</button>`)
-                    console.log("asasasasasas")
+                    
                 });
             }, 200);
 
@@ -456,7 +453,7 @@ $(document).ready(function () {
     // click to clier remove attachments
     $(document).on("click", ".clear", function () {
 
-        console.log();
+        
         var file_url = $(this).data("clear")
 
         $("#"+$(this).parent().attr("id")).html("")
@@ -504,7 +501,7 @@ $(document).ready(function () {
 
   // on input to show save button
   $("input").on("input",function(){
-    console.log("asasasasa============");
+    
     $("#save").show()
     $("#submit").hide()
   })
@@ -551,7 +548,7 @@ $(document).ready(function () {
             let foundFile = files.find(file => file[file_id]);
 
             if (foundFile) {
-                console.log('File with ID ' + file_id + ' exists:', foundFile[file_id]);
+                
                 uploadFile(foundFile[file_id][0], i)                
             } 
         }
@@ -578,8 +575,7 @@ $(document).ready(function () {
                 contentType: false,
                 data: file_data,
                 success: function (response) {
-                    console.log("File uploaded successfully:", response);
-
+                    
                     // Check if response.message is valid
                     if (response.message && typeof response.message.file_url === 'string') {
                         $("#img_attached" + index).html(`<a href="${response.message.file_url}" data-fileurl="${response.message.file_url}">${response.message.file_url.substring(0, 10) + '...'}</a>`);
@@ -603,7 +599,7 @@ $(document).ready(function () {
                             var debit = $("#debit_id" + index).val();
                             var credit = $("#credit_id" + index).val();
                             var img_attached = $('#img_attached'+index+' a').data('fileurl')
-                            console.log($('#img_attached0 a').data('fileurl'));
+                            
     
                             if (img_attached !== "") {
                                 create_account_lst("Customer", partyvalue, accountvalue, debit, credit, img_attached);
@@ -623,10 +619,8 @@ $(document).ready(function () {
                             });
                         }
 
-                        console.log(new_account_lst);
+                        
                         updated_form_data["accounts"] = new_account_lst;
-
-                        console.log(new_account_lst);
 
                         update_payment_entry(updated_form_data);
 
@@ -674,7 +668,7 @@ $(document).ready(function () {
             dataType: "json",
             data: JSON.stringify(updated_form_data),
             success: function (data) {
-                console.log(data);
+                
                 notyf.success({
                     message: "Payment Entry update successfully",
                     duration: 5000

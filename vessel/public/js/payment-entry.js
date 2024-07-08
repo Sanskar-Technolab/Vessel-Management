@@ -147,7 +147,7 @@ $(document).ready(function () {
         $("#" + party_id).change(function () {
             $("#" + account_id).empty()
             var customer_name = $(this).val()
-            console.log(customer_name);
+            
             if (customer_name == "") {
                 get_bank_account(function (data) {
 
@@ -173,7 +173,7 @@ $(document).ready(function () {
 
         $("#" + file_id).change(function () {
             var file_data = $(this)[0].files
-            console.log(file_data);
+            
             $("#"+img_attached).html(file_data[0].name.substring(0, 15) + '...')
             if (files.length === 0) {
                 files.push({ [file_id]: file_data });
@@ -360,12 +360,11 @@ $(document).ready(function () {
         if(!validation())
         {
 
-            if($('#payment_entry_details payment_row').length<=0)
-            {
+            if(files.length == 0){
                 notyf.error({
-                    message: "Please fill all mandatory fields in table",
-                    duration: 3000
-                })
+                            message: "Please fill all mandatory fields in table",
+                            duration: 3000
+                        })
             }
 
 
@@ -378,7 +377,7 @@ $(document).ready(function () {
 
 
             for (var i = 0; i < $('#payment_entry_details tr').length; i++) {
-                let file_id = 'file_id' + i; // Generate file_id like 'file_id0', 'file_id1', etc.
+                let file_id = 'file_id' + i; // generate file id for find file data
 
                 // check file id 
                 let foundFile = files.find(file => file[file_id]);
@@ -495,7 +494,7 @@ $(document).ready(function () {
                 setTimeout(() => {
                     $(".overlay").hide()
                     window.location.href = "/accounts/payment-entry/" + data.data.name
-                }, 2500);
+                }, 1500);
 
 
             },
