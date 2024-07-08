@@ -1,3 +1,8 @@
+body {
+    scrollbar-width:none;
+    
+  }
+
 /* refresh button */
 .btn-refresh,.btn-report-action{
     width: 36px;

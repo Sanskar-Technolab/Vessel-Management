@@ -4,16 +4,27 @@ html, body {
     width : 100%;
     margin: 0;
     padding: 0;
-    /* transition:all 0.5s; */
+    overflow: auto;
+ 
  }
+/* Scroll width */
+html {
+    scrollbar-width: 5px; 
+    scrollbar-color: #999 #fff; 
+  }
+  
+
+
 
 
 .page-area{
    position: relative;
    width: -webkit-fill-available;
-   overflow-y: hidden;
+   overflow: auto;
    padding: 20px;
    height: 100%;
+   top: 85px;
+   background: #f5f7fa;
 }
 .page-area .page-title {
     align-items: center;
@@ -71,11 +82,17 @@ html, body {
     .page-container{
         max-width: 85%;
     }
+    .navbar .breadcrumbs, .navbar .breadcrumbs a{
+        font-size: 16px;
+    }
 }
 @media screen and (max-width:757px){
 
     .page-area .page-cards{
         justify-content: center;
+    }
+    .navbar .breadcrumbs, .navbar .breadcrumbs a{
+        font-size: 14px;
     }
 }
 

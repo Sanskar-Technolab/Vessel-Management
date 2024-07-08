@@ -83,11 +83,19 @@ $(document).ready(function(){
 
 
 
+    
         // notification
-        $('.notification').click(function(){
-            $('#notification-area').toggle();   
-        });
-        
+        // $('.notification').click(function(event) {
+        //     event.stopPropagation();
+        //     $('#notification-area').toggle();
+        // });
+    
+        // // Hide the notification area when clicking anywhere on the document except the notification area
+        // $(document).click(function() {
+        //     $('#notification-area').hide();
+        // });
+    
+      
     
 
 

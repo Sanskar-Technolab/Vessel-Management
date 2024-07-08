@@ -3,6 +3,7 @@ html, body {
     width : 100%;
     margin: 0;
     padding: 0;
+    
  }
 .page-section{
     position: relative;
@@ -10,8 +11,9 @@ html, body {
     left: 200px;
 	transition: none;
     min-height: 100%;
-    overflow: auto;
+    /* overflow: auto; */
     background: #f5f7fa;
+ 
     
 }
 .active + .page-section{
@@ -20,11 +22,13 @@ html, body {
 }
 .navbar
 {
+    position: fixed;
     top: 0;
     width:-webkit-fill-available;
     height: 80px;
     background-color: #ffffff;
     border-bottom: 1px solid #E6EFF5;
+    z-index: 100000;
 }
 .navbar .breadcrumbs,.navbar .breadcrumbs a{
     font-weight: 600;
@@ -78,6 +82,7 @@ html, body {
     z-index: 1000;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     display: none;
+    scrollbar-width: none;
 }
 
 #search-results li {
@@ -131,6 +136,7 @@ html, body {
     top: 65px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     right: 80px;
+    scrollbar-width: none;
     display: none; /* Initially hidden */
 }
 .notification .notify-list-item{
