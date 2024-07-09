@@ -95,7 +95,7 @@ $(document).ready(function () {
                 $("#phone").val(user_info.phone)
                 $("#mobile").val(user_info.mobile_no)
                 $("#location").val(user_info.location)
-                $("#date_of_birth").val(user_info.birth_date)
+                $("#birth_date").val(user_info.birth_date)
                 $("#state").val(user_info.interest)
 
                 
