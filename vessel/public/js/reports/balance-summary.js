@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
- 
+    var balance_summary
+    var report_print_data
 
     
      // handle filter customername
@@ -176,7 +177,8 @@ $(document).ready(function(){
             },
             success: function (data) {
                console.log(data);
-               var balance_summary = data.message
+                balance_summary = data.message
+                report_print_data = []
                $("#report_data").empty() 
                $.each(balance_summary,function(index,data){
                 
@@ -184,7 +186,7 @@ $(document).ready(function(){
                     $("#report_data").append(`<tr>
                             <td class="check-box"><input type="checkbox" class="checkall" name="checkall" /></td>
                             <td>${index+1}</td>
-                            <td class="id_data"><a href="/accounts/payment-entry/${data.name}" class="reference_id">${data.name ? date_format(data.name) : ''}</a></td>
+                            <td class="id_data"><a href="/accounts/payment-entry/${data.name}" class="reference_id">${data.name ? data.name : ''}</a></td>
                             <td class="date_data">${data.posting_date ? date_format(data.posting_date) : ''}</td>
                             <td class="account_data">${data.account ? data.account : ''}</td>
                             <td class="description_data">${data.user_remark ? data.user_remark : ''}</td>
@@ -193,7 +195,18 @@ $(document).ready(function(){
                            <td class="balance_data numbers">${data.balance ? data.balance : '0'}</td>
                             <td class="attached_data file_url">${data.custom_attachments ? `<a href='${data.custom_attachments}'>${data.custom_attachments.substring(0, 25) + '...'}</a>` : ''}</td>
                         </tr>`);
+
+                        report_print_data.push({
+                            "date": data.posting_date,
+                            "description": data.description,
+                            "debits": data.debit,
+                            "credits": data.credit,
+                            "account_balance": data.balance  
+                        });
+                        
                })
+
+               console.log(report_print_data);
             },
             error: function (xhr, status, error) {
                 // Handle the error response here
@@ -258,6 +271,13 @@ $("#refresh_report").click(function(){
     show_filtered_list(filter_data)
 
 })
+
+
+
+
+
+
+
 
 
 
