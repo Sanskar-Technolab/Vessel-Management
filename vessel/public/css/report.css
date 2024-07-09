@@ -248,5 +248,7 @@ canvas{
         top: 0;
         width: 100%;
     }
-    #table_container 
+    /* #table_container th,td{
+
+    } */
 }
