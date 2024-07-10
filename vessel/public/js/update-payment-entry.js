@@ -328,7 +328,8 @@ $(document).ready(function () {
      }
 
      setTimeout(() => {
-        $(document).on('input change', 'input, select', function () {
+        $(document).on('input change', 'input, change', function () {
+            $(this).blur()
             $("#submit").remove();
             $("#save").remove();
             $(".action-btn-group").append('<button class="btn save-btn" id="save">Save</button>');
@@ -511,16 +512,17 @@ $(document).ready(function () {
 
 
   // on input to show save button
-  $("input").on("input",function(){
-    $("#save").remove()
-    $("#save").show()
-    $("#submit").hide()
-  })
+//   $("input").on("input",function(){
+//     $("#save").remove()
+//     $("#save").show()
+//     $("#submit").hide()
+//   })
 
 
 
 
     $(document).on("click", "#save", function () {
+        console.log("sasasasasaas===================================");
        
         var form_data_list = $('form').serializeArray();
         var form_data = {};

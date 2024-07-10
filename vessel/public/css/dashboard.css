@@ -34,6 +34,7 @@ html {
     font-weight: 600;
     margin-bottom: 0;
     color: #343C6A;
+    padding-left: 25px;
 }
 .page-container{
     max-width: 90%;
