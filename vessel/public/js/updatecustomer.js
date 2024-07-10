@@ -249,12 +249,12 @@ $(document).ready(function () {
                 customer_name = customer_info.customer_name
                 profile_path = customer_info.image
                 customer_profile_img = customer_info.image && customer_info.image.includes("https") ? customer_info.image : (customer_info.image ? window.location.origin + customer_info.image : window.location.origin + "/assets/vessel/files/images/default_user.jpg")
-                customer_profile_img = encodeURI(customer_profile_img)
+                profile_img = encodeURI(customer_profile_img)
                 customer_info.image ? $("#remove_profile").show() : $("#remove_profile").hide() //hide and show remove button
-
+                console.log(profile_img);
                 $("#page_title").html(customer_info.customer_name)
                 $("#user_id").val(customer_id)
-                $('#image-preview').css('background-image', 'url(' + customer_profile_img + ')')
+                $('#image-preview').css('background-image', 'url("' + profile_img + '")');
                 $("#customer_name").val(customer_info.customer_name)
                 $("#country").val(customer_info.custom_country)
                 $("#address").val(customer_info.custom_address)
@@ -467,6 +467,8 @@ $(document).ready(function () {
                 updated_form_data[key] = value;
             }
         });
+
+        
 
         // phone section data
         phone_list = []

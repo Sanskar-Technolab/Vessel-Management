@@ -77,6 +77,7 @@ $(document).ready(function () {
         var file_id = "file_id" + $('#payment_entry_details tr').length
         var file_id = "file_id" + $('#payment_entry_details tr').length
         var file_label = "file_label" + $('#payment_entry_details tr').length
+        var description = "description" + $('#payment_entry_details tr').length
         var img_attached = "img_attached" + $('#payment_entry_details tr').length
 
         $("#payment_entry_details").append(`
@@ -95,7 +96,7 @@ $(document).ready(function () {
                 </td>
                 <td><input type="number" id="${debit_id}" class="form-control debit numbers" value="0"></td>
                 <td><input type="number" id="${credit_id}" class="form-control credit numbers" value="0"></td>
-                <td><input type="text" class="form-control"></td>
+                <td><input type="text" id="${description}" class="form-control description"></td>
                 <td>
                  <div class="d-flex align-items-center">
                     <label class="d-flex align-items-center w-100">
@@ -326,6 +327,14 @@ $(document).ready(function () {
          })
      }
 
+     setTimeout(() => {
+        $(document).on('input change', 'input, select', function () {
+            $("#submit").remove();
+            $("#save").remove();
+            $(".action-btn-group").append('<button class="btn save-btn" id="save">Save</button>');
+        });   
+     }, 2000);
+     
 
 
 
@@ -351,7 +360,7 @@ $(document).ready(function () {
             $("#total_credit").val(payment_entry.total_credit)
 
             if (payment_entry.docstatus == 1) {
-                $("#save").hide()
+                $("#save").remove()
                 $("#delete").hide()
                 $(".action-btn-group").append(`<button class="btn btn-cancel" id="cancel">Cancel</button>`)
                 // for not woring on child table to set settimeout
@@ -367,14 +376,14 @@ $(document).ready(function () {
                 setTimeout(() => {
                     $('form').find('input, textarea, select').prop('disabled', true);
                 }, 50);
-                $("#save").hide()
+                $("#save").remove()
                 $("#delete").hide()
                 $("#add_new_row").css({ "pointer-events": "none", "opacity": "0.5" })
                 $("#delete_row").css({ "pointer-events": "none", "opacity": "0.5" })
             }
 
             if (payment_entry.docstatus == 0) {
-                $("#save").hide()
+                $("#save").remove()
                 $(".action-btn-group").append(`<button class="btn btn-submit" id="submit">Submit</button>`)
 
             }
@@ -396,6 +405,7 @@ $(document).ready(function () {
                     $("#account_id" + index).val(account.account)
                     $("#debit_id" + index).val(account.debit)
                     $("#credit_id" + index).val(account.credit)
+                    $("#description" + index).val(account.user_remark)
                     if (account.custom_attachments) {
                         $("#img_attached" + index).html(`<a href='${account.custom_attachments}' data-fileurl="${account.custom_attachments}">${account.custom_attachments.substring(0, 10) + '...'}</a> `)
                     }
@@ -410,6 +420,7 @@ $(document).ready(function () {
                     'account': payment_entry.account,
                     'debit_in_account_currency': payment_entry.debit,
                     'credit_in_account_currency': payment_entry.credit,
+                    'user_remark': payment_entry.user_remark,
                     'custom_attachments': payment_entry.custom_attachments
                 });
 
@@ -421,15 +432,15 @@ $(document).ready(function () {
 
 
 
-            setTimeout(() => {
-                // if change any form input and select than change submit to save button
-                $('form').on('change', 'input, select', function () {
-                    $("#submit").remove()
-                    $("#save").hide()
-                    $(".action-btn-group").append(`<button class="btn save-btn" id="save">Save</button>`)
+            // setTimeout(() => {
+            //     // if change any form input and select than change submit to save button
+            //     $(document).on('change', 'input, select', function () {
+            //         $("#submit").remove()
+            //         $("#save").remove()
+            //         $(".action-btn-group").append(`<button class="btn save-btn" id="save">Save</button>`)
                     
-                });
-            }, 200);
+            //     });
+            // }, 200);
 
 
             var old_form_data_list = $('form').serializeArray();
@@ -501,7 +512,7 @@ $(document).ready(function () {
 
   // on input to show save button
   $("input").on("input",function(){
-    
+    $("#save").remove()
     $("#save").show()
     $("#submit").hide()
   })
@@ -526,11 +537,7 @@ $(document).ready(function () {
             }
         });
 
-
-
-
-
-
+        
 
 
         // counter to track upload image or not
@@ -541,97 +548,119 @@ $(document).ready(function () {
         var file_list = []; 
 
 
-        for (var i = 0; i < $('#payment_entry_details tr').length; i++) {
-            let file_id = 'file_id' + i; // Generate file_id like 'file_id0', 'file_id1', etc.
+                
+        $('#payment_entry_details tr').each(function (index) {
+            let file_id = 'file_id' + index; // Generate file_id like 'file_id0', 'file_id1', etc.
 
-            // check file id 
+            // Check if there's a file associated with the current row
             let foundFile = files.find(file => file[file_id]);
 
             if (foundFile) {
-                
-                uploadFile(foundFile[file_id][0], i)                
-            } 
+                uploadFile(foundFile[file_id][0], index);
+            } else {
+                // Call uploadFile with null or undefined to handle the case where no file is found
+                uploadFile(null, index);
+            }
+        });
+
+        // Upload file function
+        function uploadFile(file, index) {
+            $(".overlay").show();
+            $(".overlay-content").html("Please Wait....");
+
+            // Check if a file is provided
+            if (file) {
+                var file_data = new FormData();
+                file_data.append("file", file);
+                file_data.append("file_name", file.name);
+                file_data.append("file_url", "/files/" + file.name);
+
+                $.ajax({
+                    url: "/api/method/upload_file",
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: file_data,
+                    success: function (response) {
+                        handleUploadSuccess(response, index);
+                    },
+                    error: function (xhr, status, error) {
+                        console.dir(xhr);
+                        handleUploadError(index);
+                    }
+                });
+            } else {
+                // Handle the case where no file is provided
+                handleUploadSuccess({ message: { file_url: $("#img_attached"+index+" a").text() } }, index);
+            }
         }
 
+        function handleUploadSuccess(response, index) {
+            // Check if response.message is valid
+            if (response.message && typeof response.message.file_url === 'string') {
+                $("#img_attached" + index).html(`<a href="${response.message.file_url}" data-fileurl="${response.message.file_url}">${response.message.file_url.substring(0, 10) + '...'}</a>`);
+                file_list.push(response.message);
+                uploadedFileUrls.push(response.message.file_url);
+            } else {
+                console.error("Invalid response:", response);
+            }
 
+            // Increment uploadcompleted
+            uploadcompleted++;
 
+            // Check if all uploads are complete
+            if (uploadcompleted === $('#payment_entry_details tr').length) {
+                updateAccountsData();
+            }
+        }
 
+        function handleUploadError(index) {
+            // Handle error appropriately, increment uploadcompleted
+            uploadcompleted++;
 
+            // Check if all uploads are complete
+            if (uploadcompleted === $('#payment_entry_details tr').length) {
+                updateAccountsData();
+            }
+        }
 
+        function updateAccountsData() {
+            // Prepare updated account details object
+            new_account_lst = [];
+            $('#payment_entry_details tr').each(function (index) {
+                var partyvalue = $("#party_id" + index).val();
+                var accountvalue = $("#account_id" + index).val();
+                var debit = $("#debit_id" + index).val();
+                var credit = $("#credit_id" + index).val();
+                var description = $("#description" + index).val();
+                var img_attached = $('#img_attached' + index + ' a').data('fileurl');
 
-        // upload file
-        function uploadFile(file, index) {
-            $(".overlay").show()
-            $(".overlay-content").html("Please Wait....")
-            var file_data = new FormData();
-            file_data.append("file", file);
-            file_data.append("file_name", file.name);
-            file_data.append("file_url", "/files/" + file.name);
+                console.log(description);
 
-            $.ajax({
-                url: "/api/method/upload_file",
-                type: "POST",
-                processData: false,
-                contentType: false,
-                data: file_data,
-                success: function (response) {
-                    
-                    // Check if response.message is valid
-                    if (response.message && typeof response.message.file_url === 'string') {
-                        $("#img_attached" + index).html(`<a href="${response.message.file_url}" data-fileurl="${response.message.file_url}">${response.message.file_url.substring(0, 10) + '...'}</a>`);
-                        file_list.push(response.message);
-                        uploadedFileUrls.push(response.message.file_url);
-                    } else {
-                        console.error("Invalid response:", response);
-                    }
-
-                    // if upload is completed than +1 add in uploadcompleted
-                    uploadcompleted++;
-
-                    // Check if all uploads are complete
-                    if (uploadcompleted === files.length) {
-
-                        // get updated account table details prepare object
-                        new_account_lst = [];
-                        $('#payment_entry_details tr').each(function (index) {
-                            var partyvalue = $("#party_id" + index).val();
-                            var accountvalue = $("#account_id" + index).val();
-                            var debit = $("#debit_id" + index).val();
-                            var credit = $("#credit_id" + index).val();
-                            var img_attached = $('#img_attached'+index+' a').data('fileurl')
-                            
-    
-                            if (img_attached !== "") {
-                                create_account_lst("Customer", partyvalue, accountvalue, debit, credit, img_attached);
-                            } else {
-                                create_account_lst("", partyvalue, accountvalue, debit, credit, img_attached);
-                            }
-                        });
-
-                        function create_account_lst(partytype, partyvalue, accountvalue, debit, credit, custom_attachments) {
-                            new_account_lst.push({
-                                'party_type': partytype,
-                                'party': partyvalue,
-                                'account': accountvalue,
-                                'debit_in_account_currency': debit,
-                                'credit_in_account_currency': credit,
-                                'custom_attachments': custom_attachments
-                            });
-                        }
-
-                        
-                        updated_form_data["accounts"] = new_account_lst;
-
-                        update_payment_entry(updated_form_data);
-
-                    }
-                },
-                error: function (xhr, status, error) {
-                    
-                    console.dir(xhr);
+                if (img_attached !== "") {
+                    create_account_lst("Customer", partyvalue, accountvalue, debit, credit, description, img_attached);
+                } else {
+                    create_account_lst("", partyvalue, accountvalue, debit, credit, description, img_attached);
                 }
             });
+
+            function create_account_lst(partytype, partyvalue, accountvalue, debit, credit,description, custom_attachments) {
+                new_account_lst.push({
+                    'party_type': partytype,
+                    'party': partyvalue,
+                    'account': accountvalue,
+                    'debit_in_account_currency': debit,
+                    'credit_in_account_currency': credit,
+                    'user_remark': description,
+                    'custom_attachments': custom_attachments
+                });
+            }
+
+            updated_form_data["accounts"] = new_account_lst;
+            console.log(new_account_lst);
+            update_payment_entry(updated_form_data);
         }
+
 
 
        
@@ -680,6 +709,7 @@ $(document).ready(function () {
 
             },
             error: function (xhr, status, error) {
+                console.dir(xhr)
                 $('#overlay').hide();
                 var error_msg = xhr.responseJSON.exception.split(":")[1]
                     console.log(error_msg);

@@ -178,6 +178,7 @@ $(document).ready(function(){
             success: function (data) {
                console.log(data);
                 balance_summary = data.message
+                console.log(balance_summary);
                 report_print_data = []
                $("#report_data").empty() 
                $.each(balance_summary,function(index,data){
@@ -197,11 +198,12 @@ $(document).ready(function(){
                         </tr>`);
 
                         report_print_data.push({
-                            "date": data.posting_date,
-                            "description": data.description,
+                            "date": date_format(data.posting_date),
+                            "description": data.user_remark,
                             "debits": data.debit,
                             "credits": data.credit,
-                            "account_balance": data.balance  
+                            "account_balance": data.balance  ,
+                            "symbol":data.symbol
                         });
                         
                })
@@ -264,6 +266,9 @@ function date_format(date){
 }
 
 
+
+
+
 $("#refresh_report").click(function(){
 
   var filter_data = get_filter_from_urls()    
@@ -274,7 +279,63 @@ $("#refresh_report").click(function(){
 
 
 
+// Print report
 
+     // Function to generate dynamic table
+     function generateprint(data) {
+     
+        $("#report_print_data").empty()
+        $.each(data,function(index,report_data){
+            console.log(report_data.date);
+            $("#report_print_data").append(`
+
+                    <tr>
+                        <td>${report_data.date}</td>
+                        <td>${report_data.description ? report_data.description:'' }</td>
+                        <td class="debit_data">${report_data.symbol+report_data.debits}</td>
+                        <td class="credit_data">${report_data.symbol+report_data.credits}</td>
+                        <td class="balance_data">${report_data.symbol+report_data.account_balance}</td>
+                    </tr>
+                
+                `)
+        })
+       
+
+
+
+        var divContents = document.getElementById("table_container").innerHTML;
+        var print = window.open('', '');
+        print.document.write('<html><head><title>statement_of_account</title>');
+        print.document.write('<link rel="stylesheet" href="/assets/vessel/css/printview.css" type="text/css" />');
+        print.document.write('<link rel="preconnect" href="https://fonts.googleapis.com" />');
+        print.document.write('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />');
+        print.document.write(' <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Rasa:wght@500&display=swap" rel="stylesheet" />');
+        print.document.write('<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>');
+        print.document.write('<script src="/assets/vessel/js/reports/printpreview.js"></script>');
+        print.document.write('</head><body>');
+        print.document.write(divContents);
+        print.document.write('</body></html>');
+        print.document.close();
+
+        print.onload = function() {
+            print.print();
+            print.onafterprint = function() {
+                print.close();
+            };
+        };
+        
+    }
+
+
+    function print_report() {
+        generateprint(report_print_data);
+    }
+
+
+    
+    $('#print_report').click(print_report);
+    
+    
 
 
 

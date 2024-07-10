@@ -97,6 +97,7 @@ $(document).ready(function () {
         var credit_id = "credit_id" + $('#payment_entry_details tr').length
         var file_id = "file_id" + $('#payment_entry_details tr').length
         var file_label = "file_label" + $('#payment_entry_details tr').length
+        var description = "description"+ $('#payment_entry_details tr').length
         var img_attached = "img_attached" + $('#payment_entry_details tr').length
 
         $("#payment_entry_details").append(`
@@ -115,7 +116,7 @@ $(document).ready(function () {
                 </td>
                 <td><input type="number" id="${debit_id}" class="form-control debit" value="0"></td>
                 <td><input type="number" id="${credit_id}" class="form-control credit" value="0"></td>
-                <td><input type="text" class="form-control"></td>
+                <td><input type="text" id="${description}" class="form-control description"></td>
                 <td>
                     <div class="d-flex align-items-center">
                     <label class="d-flex align-items-center w-100">
@@ -434,13 +435,14 @@ $(document).ready(function () {
                             var accountvalue = $("#account_id" + index).val();
                             var debit = $("#debit_id" + index).val();
                             var credit = $("#credit_id" + index).val();
+                            var description = $("#description" + index).val();
                             var img_attached = $('#img_attached'+index+' a').data('fileurl')
                             
     
                             if (img_attached !== "" || img_attached !== undefined) {
-                                create_account_lst("Customer", partyvalue, accountvalue, debit, credit, img_attached);
+                                create_account_lst("Customer", partyvalue, accountvalue, debit, credit,description, img_attached);
                             } else {
-                                create_account_lst("", partyvalue, accountvalue, debit, credit, img_attached);
+                                create_account_lst("", partyvalue, accountvalue, debit, credit,description, img_attached);
                             }
                         });
 
@@ -451,6 +453,7 @@ $(document).ready(function () {
                                 'account': accountvalue,
                                 'debit_in_account_currency': debit,
                                 'credit_in_account_currency': credit,
+                                'user_remark':description,
                                 'custom_attachments': custom_attachments
                             });
                         }

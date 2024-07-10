@@ -1,0 +1,16 @@
+*{
+    font-family: "Inter", sans-serif;
+}
+
+#print_report_table table,#print_report_table th,#print_report_table td {
+    border: 1px solid #111;
+    border-collapse: collapse;
+}
+#print_report_table th,#print_report_table td {
+    padding: 8px;
+}
+#print_report_table .debit_data,
+#print_report_table .credit_data,
+#print_report_table .balance_data{
+    text-align: right;
+}

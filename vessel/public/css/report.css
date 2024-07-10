@@ -235,6 +235,12 @@ canvas{
     }
 }
 
+
+
+/* print section for balance summary */
+#table-container table th,#table-container table td{
+    border:1px solid #111;
+}
 @media print {
     body * {
         visibility: hidden;
@@ -248,7 +254,7 @@ canvas{
         top: 0;
         width: 100%;
     }
-    /* #table_container th,td{
-
-    } */
+     table th,td{
+        border:1px solid #111;
+    }
 }
