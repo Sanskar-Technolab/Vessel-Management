@@ -329,10 +329,11 @@ $(document).ready(function () {
 
      setTimeout(() => {
         $(document).on('input change', 'input, change', function () {
-            $(this).blur()
+          
             $("#submit").remove();
             $("#save").remove();
             $(".action-btn-group").append('<button class="btn save-btn" id="save">Save</button>');
+            
         });   
      }, 2000);
      
