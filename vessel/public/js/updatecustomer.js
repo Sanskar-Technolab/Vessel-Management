@@ -173,15 +173,29 @@ $(document).ready(function () {
                 set_account(companyval);
          }, 200);
         // set accounts company wise
-        get_account(function (data) {
+        function set_account(company_name) {
             $("#" + account_id).empty()
-            $("#" + account_id).append(`<option></option>`)
-            data.forEach(function (account) {
-                $("#" + account_id).append(`<option value="${account.name}">${account.name}</option>`)
-            });
+            setTimeout(() => {
+                get_account(function (data) {
+                    console.log(data);
+                        console.log($("#"+account_id));
+                    data.forEach(function (account) {
+                        $("#"+account_id).append(`<option value="${account.name}">${account.name}</option>`)
+                    })
+                }, company_name)
+               
+                
+            }, 200)
+        }
+        // get_account(function (data) {
+        //     $("#" + account_id).empty()
+        //     $("#" + account_id).append(`<option></option>`)
+        //     data.forEach(function (account) {
+        //         $("#" + account_id).append(`<option value="${account.name}">${account.name}</option>`)
+        //     });
 
 
-        }, company_value);
+        // }, company_value);
 
 
         $("#" + company_id).change(function () {
