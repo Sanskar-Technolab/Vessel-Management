@@ -75,11 +75,11 @@ $(document).ready(function () {
             $('#company').after('<span id="company_error" class="error-message">Please company name is mandatory.</span>');
         }
         else{
-            var abbr = $('#company').text().split(' ').map(function(word) {
-                return word.charAt(0);
-            }).join('');
-            form_data["abbr"] = abbr
-            form_data["default_currency"] = "INR"
+            // var abbr = $('#company').text().split(' ').map(function(word) {
+            //     return word.charAt(0);
+            // }).join('');
+            // form_data["abbr"] = abbr
+
 
             //loading_page
             $(".overlay").show()

@@ -1,7 +1,10 @@
 $(document).ready(function(){
 
     var balance_summary
-    var report_print_data
+    var report_print_data = []
+    var report_data_len = 0
+    // Create an instance of Notyf
+    var notyf = new Notyf();
 
     
      // handle filter customername
@@ -9,7 +12,7 @@ $(document).ready(function(){
      $('#customer_name,#company,#from_date,#to_date').on('input', function() {
         clearTimeout(timer); // Clear previous timer for not every time to load on system ( reduce load on server filter time)
         timer = setTimeout(() => {
-            balance_summary_filters() //always set before the get filter from url bexause set filter in url using this function 
+            balance_summary_filters() //always set before the get filter from url and set filter in url using this function 
             var field_filter_data = get_filter_from_urls()
 
             show_filtered_list(field_filter_data)
@@ -69,8 +72,8 @@ $(document).ready(function(){
           })
       }
 
-
-
+      
+        
 
     function balance_summary_filters(){
         var filters = [];
@@ -80,6 +83,7 @@ $(document).ready(function(){
         var company_name_filter = $('#company').val();
         var from_date = $('#from_date').val();
         var to_date = $('#to_date').val();
+        console.log("Company Name filter===="+company_name_filter);
     
         if (customer_name_filter !== '') {
             filters.push('party=' + encodeURIComponent('%' + customer_name_filter + '%'));
@@ -118,9 +122,8 @@ $(document).ready(function(){
         // Update the URL using pushState
         window.history.pushState({ path: newUrl }, '', newUrl);
     }
+        
     
-
-
 
     // get filter from url query parameter
     function get_filter_from_urls() {
@@ -162,10 +165,18 @@ $(document).ready(function(){
 
 
 
-
-    var filter_data = get_filter_from_urls()    
-    console.log(filter_data);
-    show_filtered_list(filter_data)
+ 
+   setTimeout(() => {
+        // Set the value of the input field
+        $("#company").val($("#default_company").html());
+        balance_summary_filters()   //set filters in url (company filter) 
+            
+        var filter_data = get_filter_from_urls()    
+        console.log(filter_data);
+        show_filtered_list(filter_data)
+   }, 100);
+ 
+  
      function show_filtered_list(filters){
         $.ajax({
             url: "/api/method/vessel.api.report.calculate_journal_entry_balances",
@@ -208,7 +219,10 @@ $(document).ready(function(){
                         
                })
 
-               console.log(report_print_data);
+               report_data_len = report_print_data.length
+               
+               
+       
             },
             error: function (xhr, status, error) {
                 // Handle the error response here
@@ -331,9 +345,23 @@ $("#refresh_report").click(function(){
         generateprint(report_print_data);
     }
 
+    
+
+    $('#print_report').click(function(){
+        if(report_data_len != 0)
+        {
+           print_report();
+        }
+        else{
+                notyf.error({
+                    message:"Data is not available in report",
+                    duration:5000
+                });
+            
+        }
+});
 
     
-    $('#print_report').click(print_report);
     
     
 

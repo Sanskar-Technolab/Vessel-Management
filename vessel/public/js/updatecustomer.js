@@ -156,18 +156,22 @@ $(document).ready(function () {
             </tr>`)
 
 
-        // $("#" + company_id).append(`<option"></option>`)
-        // $.each(company_select_list, function (i, company) {
-        //     $("#" + company_id).append(`<option value="${company}">${company}</option>`)
-
-        // })
+        
         get_company(function (data) {
             $("#" + company_id).append(`<option></option>`)
             data.forEach(function (company) {
                 $("#" + company_id).append(`<option value="${company.name}">${company.name}</option>`);
             });
+
+            // set default company
+            $("#" + company_id).val($("#default_company").html())
         });
 
+
+            setTimeout(() => {
+                var companyval = $("#" + company_id).val();
+                set_account(companyval);
+         }, 200);
         // set accounts company wise
         get_account(function (data) {
             $("#" + account_id).empty()

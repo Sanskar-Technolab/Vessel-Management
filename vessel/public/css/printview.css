@@ -14,3 +14,7 @@
 #print_report_table .balance_data{
     text-align: right;
 }
+
+@media print {
+
+}

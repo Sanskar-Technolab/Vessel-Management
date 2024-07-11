@@ -43,14 +43,14 @@ $(window).bind("pageshow", function(event) {
 
 
 
-  //show and hide password in password field
+     //show and hide password in password field
   $(".show-hide-password").click(function () {
-    const passwordField = $(".password");
-    const passwordFieldType =
-      passwordField.attr("type") === "password" ? "text" : "password";
-    passwordField.attr("type", passwordFieldType);
+    const passwordfield = $(".password");
+    const passwordfield_type =
+      passwordfield.attr("type") === "password" ? "text" : "password";
+    passwordfield.attr("type", passwordfield_type);
 
-    $(this).text(passwordFieldType === "password" ? "show" : "hide");
+    $(this).text(passwordfield_type === "password" ? "show" : "hide");
   });
 
   // click login to login process
@@ -92,8 +92,9 @@ $(window).bind("pageshow", function(event) {
 
         },
         error: function (xhr, status, error) {
+        
           if (error == "UNAUTHORIZED") {
-            $('#password').after('<span id="password_error" class="error-message">Please enter valid username or password.</span>');
+            $('#password').after('<span id="password_error" class="error-message">'+xhr.responseJSON.message+'</span>');
           }
           $("#forget-password").val("Reset Password");
         },

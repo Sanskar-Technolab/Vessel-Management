@@ -713,7 +713,7 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 console.dir(xhr)
-                $('#overlay').hide();
+                $('.overlay').hide();
                 var error_msg = xhr.responseJSON.exception.split(":")[1]
                     console.log(error_msg);
 

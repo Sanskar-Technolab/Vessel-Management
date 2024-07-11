@@ -15,3 +15,4 @@ def verify_loggedin():
 def loggedin_user():
     user = frappe.session.user
     return frappe.db.get_value("User",user,"user_image")
+

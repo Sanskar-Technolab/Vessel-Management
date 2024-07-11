@@ -138,7 +138,7 @@ $(document).ready(function () {
                 $("#" + party_id).append(`<option value="${customer.name}"> ${customer.customer_name} - ${customer.name}</option>`)
             })
 
-        get_bank_account(function (data) {
+        get_bank_account(function (data)  {
 
             $.each(data, function (i, account) {
                 $("#" + account_id).append(`<option value="${account.name}">${account.name}</option>`)
@@ -347,6 +347,10 @@ $(document).ready(function () {
 
 
 
+    // set default company in company field
+    setTimeout(() => {
+        $("#company").val($("#default_company").html())
+    }, 300);
 
     $("#save").click(function () {
         var form_data_list = $('form').serializeArray();

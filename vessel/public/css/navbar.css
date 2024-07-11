@@ -24,7 +24,7 @@ html, body {
 {
     position: fixed;
     top: 0;
-    width:-webkit-fill-available;
+    width:inherit;
     height: 80px;
     background-color: #ffffff;
     border-bottom: 1px solid #E6EFF5;

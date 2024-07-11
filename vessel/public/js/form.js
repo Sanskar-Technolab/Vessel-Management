@@ -20,6 +20,14 @@ $(document).ready(function(){
     }
 
 
-   
+   //show and hide password in password field
+  $(".show-hide-password").click(function () {
+    const passwordfield = $(".password");
+    const passwordfield_type =
+      passwordfield.attr("type") === "password" ? "text" : "password";
+    passwordfield.attr("type", passwordfield_type);
+
+    $(this).text(passwordfield_type === "password" ? "show" : "hide");
+  });
     
 })

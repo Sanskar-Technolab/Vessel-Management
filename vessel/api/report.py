@@ -24,6 +24,9 @@ def calculate_journal_entry_balances(filters):
     if from_date and to_date:
         conditions.append(f"je.posting_date BETWEEN '{from_date}' AND '{to_date}'")
 
+    # set default condition only showcase submitted data
+    conditions.append(f"je.docstatus=1")
+    
     # get data
     query = """
         SELECT
