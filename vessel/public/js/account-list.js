@@ -98,6 +98,7 @@ function bulk_delete(delete_list) {
 
         },
         error: function (xhr, status, error) {
+            $(".overlay").hide()
             console.dir(xhr);
             console.log(JSON.parse(JSON.parse(xhr.responseJSON._server_messages)[0]).message);
             var error_msg = JSON.parse(JSON.parse(xhr.responseJSON._server_messages)[0]).message.replace(/<a([^>]*)>/g, '<div style="font-weight: bold; color: white;">')

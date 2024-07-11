@@ -594,7 +594,7 @@ $(document).ready(function () {
                 });
             } else {
                 // Handle the case where no file is provided
-                handleUploadSuccess({ message: { file_url: $("#img_attached"+index+" a").text() } }, index);
+                handleUploadSuccess({ message: { file_url: $("#img_attached"+index+" a").data("fileurl") } }, index);
             }
         }
 

@@ -86,10 +86,12 @@ $(document).ready(function () {
 
                  setTimeout(() => {
                     var company_info = data.data
-                    $("#page_title").html(company_info.name)
-                    $("#company").val(company_info.name)
-                    $("#country").val(company_info.country)
-                    $("#currency").val(company_info.default_currency)
+                    setTimeout(() => {
+                        $("#page_title").html(company_info.name)
+                        $("#company").val(company_info.name)
+                        $("#country").val(company_info.country)
+                        $("#currency").val(company_info.default_currency)
+                    }, 200);
 
 
                      // get old form data
@@ -207,4 +209,42 @@ $(document).ready(function () {
             })
         }
     })
+
+
+
+    $("#delete").click(function () {
+
+        $(".overlay").show()
+        $(".overlay-content").text("Please Wait....")
+
+        // delete file
+        $.ajax({
+            url: "/api/resource/Company/" + company_id,
+            type: "DELETE",
+            dataType: "json",
+
+            success: function (data) {
+
+
+
+                notyf.success({
+                    message: "Deleted record  successfully",
+                    duration: 5000
+                })
+                setTimeout(() => {
+                    window.location.href = "/accounts/company"
+                    $(".overlay").hide()
+                }, 1500);
+
+            },
+            error: function (xhr, status, error) {
+                // Handle the error response here
+                console.dir(xhr); // Print the XHR object for more details
+
+            }
+        })
+    })
+
+
+
 })

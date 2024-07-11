@@ -28,7 +28,7 @@ html, body {
     height: 80px;
     background-color: #ffffff;
     border-bottom: 1px solid #E6EFF5;
-    z-index: 100000;
+    z-index: 10000;
 }
 .navbar .breadcrumbs,.navbar .breadcrumbs a{
     font-weight: 600;
@@ -181,12 +181,9 @@ html, body {
     width: 100%;
     height: 100%;
     background-color: #ffffffa3;
-    /* Semi-transparent black */
     z-index: 1000;
-    /* Ensure the overlay is on top of other content */
     display: none;
-    /* Initially hidden */
-
+    
 }
 
 .overlay-content {

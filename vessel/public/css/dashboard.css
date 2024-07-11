@@ -34,10 +34,10 @@ html {
     font-weight: 600;
     margin-bottom: 0;
     color: #343C6A;
-    padding-left: 25px;
+    padding-left: 20px;
 }
 .page-container{
-    max-width: 90%;
+    max-width: 95%;
     margin-left: auto!important;
     margin-right: auto!important;
     justify-content: space-around;
@@ -78,13 +78,20 @@ html {
 }
 
 /* responsive */
+@media screen and (max-width:1024px){
+
+    .navbar .breadcrumbs, .navbar .breadcrumbs a{
+        font-size: 16px;
+    }
+}
+
 @media screen and (max-width:992px){
 
     .page-container{
-        max-width: 85%;
+        max-width: 90%;
     }
     .navbar .breadcrumbs, .navbar .breadcrumbs a{
-        font-size: 16px;
+        font-size: 14px;
     }
 }
 @media screen and (max-width:757px){

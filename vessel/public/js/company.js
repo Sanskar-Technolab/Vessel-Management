@@ -96,9 +96,10 @@ $(document).ready(function () {
                         message: "Company create successfully",
                         duration: 5000
                     })
+                    var company_id = data.data.name
                     setTimeout(() => {
                         $(".overlay").hide()
-                        window.location.href = "/accounts/company"
+                        window.location.href = "/accounts/company/"+company_id
                     }, 1500);
     
                    

@@ -191,9 +191,9 @@ $(document).ready(function(){
                             <td class="date_data">${data.posting_date ? date_format(data.posting_date) : ''}</td>
                             <td class="account_data">${data.account ? data.account : ''}</td>
                             <td class="description_data">${data.user_remark ? data.user_remark : ''}</td>
-                            <td class="debit_data nymbers">${data.debit ? data.debit : '0'}</td>
-                           <td class="credit_data numbers">${data.credit ? data.credit : '0'}</td>
-                           <td class="balance_data numbers">${data.balance ? data.balance : '0'}</td>
+                            <td class="debit_data nymbers">${data.debit ? data.symbol+data.debit : data.symbol+'0'}</td>
+                           <td class="credit_data numbers">${data.credit ? data.symbol+data.credit : data.symbol+'0'}</td>
+                           <td class="balance_data numbers">${data.balance ? data.symbol+data.balance : data.symbol+'0'}</td>
                             <td class="attached_data file_url">${data.custom_attachments ? `<a href='${data.custom_attachments}'>${data.custom_attachments.substring(0, 25) + '...'}</a>` : ''}</td>
                         </tr>`);
 

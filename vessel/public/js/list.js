@@ -14,7 +14,7 @@ $(document).ready(function () {
     // pagination active class change
     $('.pagination .page-item').click(function () {
         $('.pagination .page-item').toggleClass('active');
-        // $(this).addClass('active');
+        
 
     })
 
