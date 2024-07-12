@@ -1,7 +1,10 @@
 $(document).ready(function(){
 
     var balance_summary
-    var report_print_data
+    var report_print_data = []
+    var report_data_len = 0
+    // Create an instance of Notyf
+    var notyf = new Notyf();
 
     
      // handle filter customername
@@ -9,7 +12,7 @@ $(document).ready(function(){
      $('#customer_name,#company,#from_date,#to_date').on('input', function() {
         clearTimeout(timer); // Clear previous timer for not every time to load on system ( reduce load on server filter time)
         timer = setTimeout(() => {
-            balance_summary_filters() //always set before the get filter from url bexause set filter in url using this function 
+            balance_summary_filters() //always set before the get filter from url and set filter in url using this function 
             var field_filter_data = get_filter_from_urls()
 
             show_filtered_list(field_filter_data)
@@ -69,8 +72,8 @@ $(document).ready(function(){
           })
       }
 
-
-
+      
+        
 
     function balance_summary_filters(){
         var filters = [];
@@ -80,6 +83,7 @@ $(document).ready(function(){
         var company_name_filter = $('#company').val();
         var from_date = $('#from_date').val();
         var to_date = $('#to_date').val();
+        console.log("Company Name filter===="+company_name_filter);
     
         if (customer_name_filter !== '') {
             filters.push('party=' + encodeURIComponent('%' + customer_name_filter + '%'));
@@ -118,9 +122,8 @@ $(document).ready(function(){
         // Update the URL using pushState
         window.history.pushState({ path: newUrl }, '', newUrl);
     }
+        
     
-
-
 
     // get filter from url query parameter
     function get_filter_from_urls() {
@@ -162,10 +165,18 @@ $(document).ready(function(){
 
 
 
-
-    var filter_data = get_filter_from_urls()    
-    console.log(filter_data);
-    show_filtered_list(filter_data)
+ 
+   setTimeout(() => {
+        // Set the value of the input field
+        $("#company").val($("#default_company").html());
+        balance_summary_filters()   //set filters in url (company filter) 
+            
+        var filter_data = get_filter_from_urls()    
+        console.log(filter_data);
+        show_filtered_list(filter_data)
+   }, 100);
+ 
+  
      function show_filtered_list(filters){
         $.ajax({
             url: "/api/method/vessel.api.report.calculate_journal_entry_balances",
@@ -178,6 +189,7 @@ $(document).ready(function(){
             success: function (data) {
                console.log(data);
                 balance_summary = data.message
+                console.log(balance_summary);
                 report_print_data = []
                $("#report_data").empty() 
                $.each(balance_summary,function(index,data){
@@ -190,23 +202,27 @@ $(document).ready(function(){
                             <td class="date_data">${data.posting_date ? date_format(data.posting_date) : ''}</td>
                             <td class="account_data">${data.account ? data.account : ''}</td>
                             <td class="description_data">${data.user_remark ? data.user_remark : ''}</td>
-                            <td class="debit_data nymbers">${data.debit ? data.debit : '0'}</td>
-                           <td class="credit_data numbers">${data.credit ? data.credit : '0'}</td>
-                           <td class="balance_data numbers">${data.balance ? data.balance : '0'}</td>
+                            <td class="debit_data nymbers">${data.debit ? data.symbol+data.debit : data.symbol+'0'}</td>
+                           <td class="credit_data numbers">${data.credit ? data.symbol+data.credit : data.symbol+'0'}</td>
+                           <td class="balance_data numbers">${data.balance ? data.symbol+data.balance : data.symbol+'0'}</td>
                             <td class="attached_data file_url">${data.custom_attachments ? `<a href='${data.custom_attachments}'>${data.custom_attachments.substring(0, 25) + '...'}</a>` : ''}</td>
                         </tr>`);
 
                         report_print_data.push({
-                            "date": data.posting_date,
-                            "description": data.description,
+                            "date": date_format(data.posting_date),
+                            "description": data.user_remark,
                             "debits": data.debit,
                             "credits": data.credit,
-                            "account_balance": data.balance  
+                            "account_balance": data.balance  ,
+                            "symbol":data.symbol
                         });
                         
                })
 
-               console.log(report_print_data);
+               report_data_len = report_print_data.length
+               
+               
+       
             },
             error: function (xhr, status, error) {
                 // Handle the error response here
@@ -264,6 +280,9 @@ function date_format(date){
 }
 
 
+
+
+
 $("#refresh_report").click(function(){
 
   var filter_data = get_filter_from_urls()    
@@ -274,7 +293,77 @@ $("#refresh_report").click(function(){
 
 
 
+// Print report
 
+     // Function to generate dynamic table
+     function generateprint(data) {
+     
+        $("#report_print_data").empty()
+        $.each(data,function(index,report_data){
+            console.log(report_data.date);
+            $("#report_print_data").append(`
+
+                    <tr>
+                        <td>${report_data.date}</td>
+                        <td>${report_data.description ? report_data.description:'' }</td>
+                        <td class="debit_data">${report_data.symbol+report_data.debits}</td>
+                        <td class="credit_data">${report_data.symbol+report_data.credits}</td>
+                        <td class="balance_data">${report_data.symbol+report_data.account_balance}</td>
+                    </tr>
+                
+                `)
+        })
+       
+
+
+
+        var divContents = document.getElementById("table_container").innerHTML;
+        var print = window.open('', '');
+        print.document.write('<html><head><title>statement_of_account</title>');
+        print.document.write('<link rel="stylesheet" href="/assets/vessel/css/printview.css" type="text/css" />');
+        print.document.write('<link rel="preconnect" href="https://fonts.googleapis.com" />');
+        print.document.write('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />');
+        print.document.write(' <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Rasa:wght@500&display=swap" rel="stylesheet" />');
+        print.document.write('<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>');
+        print.document.write('<script src="/assets/vessel/js/reports/printpreview.js"></script>');
+        print.document.write('</head><body>');
+        print.document.write(divContents);
+        print.document.write('</body></html>');
+        print.document.close();
+
+        print.onload = function() {
+            print.print();
+            print.onafterprint = function() {
+                print.close();
+            };
+        };
+        
+    }
+
+
+    function print_report() {
+        generateprint(report_print_data);
+    }
+
+    
+
+    $('#print_report').click(function(){
+        if(report_data_len != 0)
+        {
+           print_report();
+        }
+        else{
+                notyf.error({
+                    message:"Data is not available in report",
+                    duration:5000
+                });
+            
+        }
+});
+
+    
+    
+    
 
 
 

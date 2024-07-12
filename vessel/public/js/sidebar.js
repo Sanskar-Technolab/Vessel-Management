@@ -16,12 +16,12 @@ $(document).ready(function () {
 
     // Apply the saved state on page load
     if (getSidebarState() === 'collapsed') {
-        $('#sidebar, .sidebar-header, .breadcrumbs, li').addClass('active sidebar-icon collapse-header collapse-breadcrumbs');
+        $('#sidebar, .sidebar-header, .breadcrumbs').addClass('active sidebar-icon collapse-header collapse-breadcrumbs');
     }
 
     // Toggle sidebar on button click
     $('#sidebarcollapse').click(function () {
-        $('#sidebar, li, .sidebar-header, .breadcrumbs').toggleClass('active sidebar-icon collapse-header collapse-breadcrumbs');
+        $('#sidebar, .sidebar-header, .breadcrumbs').toggleClass('active sidebar-icon collapse-header collapse-breadcrumbs');
         setSidebarState($('#sidebar').hasClass('active'));
     });
 
@@ -29,10 +29,22 @@ $(document).ready(function () {
     // responsive
     if($(window).width() < 1024)
     {
-        $('.collapse-icon').hide()
-        $('#sidebar').toggleClass('active');
-
+        resize_page(); 
     }
+
+
+    function resize_page() {
+        if ($(window).width() < 1024) {
+            $('.collapse-icon').hide();
+            $('#sidebar').addClass('active');
+        } else {
+            $('.collapse-icon').show();
+            $('#sidebar').removeClass('active');
+        }
+    }
+
+    
+    $(window).resize(resize_page);
 
     $('#sidebar ul li').click(function() {
         // remove active-page class

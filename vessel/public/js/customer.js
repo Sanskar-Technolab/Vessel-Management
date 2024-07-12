@@ -123,11 +123,17 @@ $(document).ready(function(){
                     data.forEach(function(company) {
                         $("#" + company_id).append(`<option value="${company.name}">${company.name}</option>`);
                     });
+
+                    
+                    // set default company
+                    $("#" + company_id).val($("#default_company").html())
                 });
+
             
-                var companyval = $("#" + company_id).val();
-            
-                set_account(companyval);
+               setTimeout(() => {
+                    var companyval = $("#" + company_id).val();
+                    set_account(companyval);
+               }, 50);
             
                 function set_account(company_name) {
                     $("#" + account_id).empty()
@@ -430,7 +436,7 @@ $(document).ready(function(){
             dataType: "json",
             data: {
                 fields: JSON.stringify(["name"]),
-                filters: JSON.stringify([["company", "=", companyval],["account_type", "in", ["Payable","Receivable","Bank"]],["is_group", "=", "0"]]),
+                filters: JSON.stringify([["company", "=", companyval],["account_type", "=","Receivable"],["is_group", "=", "0"]]),
                 limit_page_length: "None"
             },
             success: function (data) {

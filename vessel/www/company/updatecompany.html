@@ -8,10 +8,34 @@
 
 {% block page_content %}
 <div class="page-area">
-    <div class="page-title d-flex">
-        <h4 id="page_title"></h4>
-        <button class="btn save-btn" id="save">Save</button>
+  <div class="page-title d-flex">
+    <h4 id="page_title"></h4>
+    <div class="action-btn-group d-flex align-items-center">
+      <div class="dropdown mr-3">
+        <button class="btn btn-form-action" type="button" id="action-button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+
+          <svg width="14" height="3" viewBox="0 0 14 3" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12.294 2.55682C11.9437 2.55682 11.643 2.43134 11.392 2.1804C11.1411 1.92945 11.0156 1.62879 11.0156 1.27841C11.0156 0.928031 11.1411 0.627368 11.392 0.376421C11.643 0.125474 11.9437 0 12.294 0C12.6444 0 12.9451 0.125474 13.196 0.376421C13.447 0.627368 13.5724 0.928031 13.5724 1.27841C13.5724 1.51042 13.5133 1.72349 13.3949 1.91761C13.2812 2.11174 13.1274 2.26799 12.9332 2.38636C12.7438 2.5 12.5308 2.55682 12.294 2.55682Z"
+              fill="#4D5461"></path>
+            <path
+              d="M6.78622 2.55682C6.43584 2.55682 6.13518 2.43134 5.88423 2.1804C5.63329 1.92945 5.50781 1.62879 5.50781 1.27841C5.50781 0.928031 5.63329 0.627368 5.88423 0.376421C6.13518 0.125474 6.43584 0 6.78622 0C7.1366 0 7.43726 0.125474 7.68821 0.376421C7.93916 0.627368 8.06463 0.928031 8.06463 1.27841C8.06463 1.51042 8.00544 1.72349 7.88707 1.91761C7.77344 2.11174 7.61956 2.26799 7.42543 2.38636C7.23603 2.5 7.02296 2.55682 6.78622 2.55682Z"
+              fill="#4D5461"></path>
+            <path
+              d="M1.27841 2.55682C0.92803 2.55682 0.627367 2.43134 0.37642 2.1804C0.125474 1.92945 0 1.62879 0 1.27841C0 0.928031 0.125474 0.627368 0.37642 0.376421C0.627367 0.125474 0.92803 0 1.27841 0C1.62879 0 1.92945 0.125474 2.1804 0.376421C2.43134 0.627368 2.55682 0.928031 2.55682 1.27841C2.55682 1.51042 2.49763 1.72349 2.37926 1.91761C2.26562 2.11174 2.11174 2.26799 1.91761 2.38636C1.72822 2.5 1.51515 2.55682 1.27841 2.55682Z"
+              fill="#4D5461"></path>
+          </svg>
+        </button>
+
+        <div class="dropdown-menu ropdown-menu-right" aria-labelledby="action-button">
+          <a class="dropdown-item" id="new_company" href="/accounts/company/new-company">New Company</a>
+          <a class="dropdown-item" id="delete">Delete</a>
+        </div>
+      </div>
+      <button class="btn save-btn" id="save">Save</button>
     </div>
+  </div>
 
     <form class="form-section">
         <div class="form-area">

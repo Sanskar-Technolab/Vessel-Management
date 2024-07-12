@@ -110,10 +110,7 @@ $(document).ready(function () {
 
             },
             error: function (xhr, status, error) {
-                // Handle the error response here
-                console.error('Error: ' + error); // Print the error to the console
-                console.error('Status: ' + status); // Print the status to the console
-                console.dir(xhr); // Print the XHR object for more details
+               
 
             }
         })

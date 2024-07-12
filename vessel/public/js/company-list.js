@@ -70,6 +70,8 @@ $(document).ready(function(){
     
 // bulk delete records
 function bulk_delete(delete_list) {
+    $(".overlay").show()
+    $(".overlay-content").html("Please Wait....")
     $.ajax({
         url: "/api/method/vessel.api.delete.bulk_delete",
         type: "POST",
@@ -89,13 +91,23 @@ function bulk_delete(delete_list) {
                 });
 
                 setTimeout(()=>{
+                    $(".overlay").hide()
                     window.location.href= "/accounts/company"
                 },1500)
             }
 
         },
         error: function (xhr, status, error) {
+            $(".overlay").hide()
             console.dir(xhr);
+            console.log(JSON.parse(JSON.parse(xhr.responseJSON._server_messages)[0]).message);
+            var error_msg = JSON.parse(JSON.parse(xhr.responseJSON._server_messages)[0]).message.replace(/<a([^>]*)>/g, '<div style="font-weight: bold; color: white;">')
+            .replace(/<\/a>/g, '</div>');
+            
+            notyf.error({
+                message:error_msg,
+                duration:10000
+        });
         }
     });
 }

@@ -156,28 +156,46 @@ $(document).ready(function () {
             </tr>`)
 
 
-        // $("#" + company_id).append(`<option"></option>`)
-        // $.each(company_select_list, function (i, company) {
-        //     $("#" + company_id).append(`<option value="${company}">${company}</option>`)
-
-        // })
+        
         get_company(function (data) {
             $("#" + company_id).append(`<option></option>`)
             data.forEach(function (company) {
                 $("#" + company_id).append(`<option value="${company.name}">${company.name}</option>`);
             });
+
+            // set default company
+            $("#" + company_id).val($("#default_company").html())
         });
 
+
+            setTimeout(() => {
+                var companyval = $("#" + company_id).val();
+                set_account(companyval);
+         }, 200);
         // set accounts company wise
-        get_account(function (data) {
+        function set_account(company_name) {
             $("#" + account_id).empty()
-            $("#" + account_id).append(`<option></option>`)
-            data.forEach(function (account) {
-                $("#" + account_id).append(`<option value="${account.name}">${account.name}</option>`)
-            });
+            setTimeout(() => {
+                get_account(function (data) {
+                    console.log(data);
+                        console.log($("#"+account_id));
+                    data.forEach(function (account) {
+                        $("#"+account_id).append(`<option value="${account.name}">${account.name}</option>`)
+                    })
+                }, company_name)
+               
+                
+            }, 200)
+        }
+        // get_account(function (data) {
+        //     $("#" + account_id).empty()
+        //     $("#" + account_id).append(`<option></option>`)
+        //     data.forEach(function (account) {
+        //         $("#" + account_id).append(`<option value="${account.name}">${account.name}</option>`)
+        //     });
 
 
-        }, company_value);
+        // }, company_value);
 
 
         $("#" + company_id).change(function () {
@@ -249,12 +267,12 @@ $(document).ready(function () {
                 customer_name = customer_info.customer_name
                 profile_path = customer_info.image
                 customer_profile_img = customer_info.image && customer_info.image.includes("https") ? customer_info.image : (customer_info.image ? window.location.origin + customer_info.image : window.location.origin + "/assets/vessel/files/images/default_user.jpg")
-                customer_profile_img = encodeURI(customer_profile_img)
+                profile_img = encodeURI(customer_profile_img)
                 customer_info.image ? $("#remove_profile").show() : $("#remove_profile").hide() //hide and show remove button
-
+                console.log(profile_img);
                 $("#page_title").html(customer_info.customer_name)
                 $("#user_id").val(customer_id)
-                $('#image-preview').css('background-image', 'url(' + customer_profile_img + ')')
+                $('#image-preview').css('background-image', 'url("' + profile_img + '")');
                 $("#customer_name").val(customer_info.customer_name)
                 $("#country").val(customer_info.custom_country)
                 $("#address").val(customer_info.custom_address)
@@ -467,6 +485,8 @@ $(document).ready(function () {
                 updated_form_data[key] = value;
             }
         });
+
+        
 
         // phone section data
         phone_list = []

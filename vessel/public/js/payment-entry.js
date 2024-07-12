@@ -97,6 +97,7 @@ $(document).ready(function () {
         var credit_id = "credit_id" + $('#payment_entry_details tr').length
         var file_id = "file_id" + $('#payment_entry_details tr').length
         var file_label = "file_label" + $('#payment_entry_details tr').length
+        var description = "description"+ $('#payment_entry_details tr').length
         var img_attached = "img_attached" + $('#payment_entry_details tr').length
 
         $("#payment_entry_details").append(`
@@ -115,7 +116,7 @@ $(document).ready(function () {
                 </td>
                 <td><input type="number" id="${debit_id}" class="form-control debit" value="0"></td>
                 <td><input type="number" id="${credit_id}" class="form-control credit" value="0"></td>
-                <td><input type="text" class="form-control"></td>
+                <td><input type="text" id="${description}" class="form-control description"></td>
                 <td>
                     <div class="d-flex align-items-center">
                     <label class="d-flex align-items-center w-100">
@@ -137,7 +138,7 @@ $(document).ready(function () {
                 $("#" + party_id).append(`<option value="${customer.name}"> ${customer.customer_name} - ${customer.name}</option>`)
             })
 
-        get_bank_account(function (data) {
+        get_bank_account(function (data)  {
 
             $.each(data, function (i, account) {
                 $("#" + account_id).append(`<option value="${account.name}">${account.name}</option>`)
@@ -346,6 +347,10 @@ $(document).ready(function () {
 
 
 
+    // set default company in company field
+    setTimeout(() => {
+        $("#company").val($("#default_company").html())
+    }, 300);
 
     $("#save").click(function () {
         var form_data_list = $('form').serializeArray();
@@ -376,98 +381,117 @@ $(document).ready(function () {
             var file_list = []; 
 
 
-            for (var i = 0; i < $('#payment_entry_details tr').length; i++) {
-                let file_id = 'file_id' + i; // generate file id for find file data
+                       
+        $('#payment_entry_details tr').each(function (index) {
+            let file_id = 'file_id' + index; // Generate file_id like 'file_id0', 'file_id1', etc.
 
-                // check file id 
-                let foundFile = files.find(file => file[file_id]);
+            // Check if there's a file associated with the current row
+            let foundFile = files.find(file => file[file_id]);
 
-                if (foundFile) {
-                    
-                    uploadFile(foundFile[file_id][0], i)                
-                } 
+            if (foundFile) {
+                uploadFile(foundFile[file_id][0], index);
+            } else {
+                // Call uploadFile with null or undefined to handle the case where no file is found
+                uploadFile(null, index);
+            }
+        });
+
+        // Upload file function
+        function uploadFile(file, index) {
+            $(".overlay").show();
+            $(".overlay-content").html("Please Wait....");
+
+            // Check if a file is provided
+            if (file) {
+                var file_data = new FormData();
+                file_data.append("file", file);
+                file_data.append("file_name", file.name);
+                file_data.append("file_url", "/files/" + file.name);
+
+                $.ajax({
+                    url: "/api/method/upload_file",
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: file_data,
+                    success: function (response) {
+                        handleUploadSuccess(response, index);
+                    },
+                    error: function (xhr, status, error) {
+                        console.dir(xhr);
+                        handleUploadError(index);
+                    }
+                });
+            } else {
+                // Handle the case where no file is provided
+                handleUploadSuccess({ message: { file_url: $("#img_attached"+index+" a").text() } }, index);
+            }
+        }
+
+        function handleUploadSuccess(response, index) {
+            // Check if response.message is valid
+            if (response.message && typeof response.message.file_url === 'string') {
+                $("#img_attached" + index).html(`<a href="${response.message.file_url}" data-fileurl="${response.message.file_url}">${response.message.file_url.substring(0, 10) + '...'}</a>`);
+                file_list.push(response.message);
+                uploadedFileUrls.push(response.message.file_url);
+            } else {
+                console.error("Invalid response:", response);
             }
 
+            // Increment uploadcompleted
+            uploadcompleted++;
 
+            // Check if all uploads are complete
+            if (uploadcompleted === $('#payment_entry_details tr').length) {
+                updateAccountsData();
+            }
+        }
 
+        function handleUploadError(index) {
+            // Handle error appropriately, increment uploadcompleted
+            uploadcompleted++;
 
+            // Check if all uploads are complete
+            if (uploadcompleted === $('#payment_entry_details tr').length) {
+                updateAccountsData();
+            }
+        }
 
+        function updateAccountsData() {
+            // Prepare updated account details object
+            account_lst = [];
+            $('#payment_entry_details tr').each(function (index) {
+                var partyvalue = $("#party_id" + index).val();
+                var accountvalue = $("#account_id" + index).val();
+                var debit = $("#debit_id" + index).val();
+                var credit = $("#credit_id" + index).val();
+                var description = $("#description" + index).val();
+                var img_attached = $('#img_attached' + index + ' a').data('fileurl');
 
+                console.log(description);
 
-        // upload file
-        function uploadFile(file, index) {
-            $(".overlay").show()
-            $(".overlay-content").html("Please Wait....")
-            var file_data = new FormData();
-            file_data.append("file", file);
-            file_data.append("file_name", file.name);
-            file_data.append("file_url", "/files/" + file.name);
-
-            $.ajax({
-                url: "/api/method/upload_file",
-                type: "POST",
-                processData: false,
-                contentType: false,
-                data: file_data,
-                success: function (response) {
-                    
-
-                    // Check if response.message is valid
-                    if (response.message && typeof response.message.file_url === 'string') {
-                        $("#img_attached" + index).html(`<a href="${response.message.file_url}" data-fileurl="${response.message.file_url}">${response.message.file_url.substring(0, 10) + '...'}</a>`);
-                        file_list.push(response.message);
-                        uploadedFileUrls.push(response.message.file_url);
-                    } else {
-                        console.error("Invalid response:", response);
-                    }
-
-                    // if upload is completed than +1 add in uploadcompleted
-                    uploadcompleted++;
-
-                    // Check if all uploads are complete
-                    if (uploadcompleted === files.length || files.length>=0) {
-
-                        // get updated account table details prepare object
-                        account_lst = [];
-                        $('#payment_entry_details tr').each(function (index) {
-                            var partyvalue = $("#party_id" + index).val();
-                            var accountvalue = $("#account_id" + index).val();
-                            var debit = $("#debit_id" + index).val();
-                            var credit = $("#credit_id" + index).val();
-                            var img_attached = $('#img_attached'+index+' a').data('fileurl')
-                            
-    
-                            if (img_attached !== "" || img_attached !== undefined) {
-                                create_account_lst("Customer", partyvalue, accountvalue, debit, credit, img_attached);
-                            } else {
-                                create_account_lst("", partyvalue, accountvalue, debit, credit, img_attached);
-                            }
-                        });
-
-                        function create_account_lst(partytype, partyvalue, accountvalue, debit, credit, custom_attachments) {
-                            account_lst.push({
-                                'party_type': partytype,
-                                'party': partyvalue,
-                                'account': accountvalue,
-                                'debit_in_account_currency': debit,
-                                'credit_in_account_currency': credit,
-                                'custom_attachments': custom_attachments
-                            });
-                        }
-
-                        
-                        form_data["accounts"] = account_lst;                       
-
-                        create_payment_entry(form_data);
-
-                    }
-                   
-                },
-                error: function (xhr, status, error) {
-                    
-                    console.dir(xhr);
+                if (img_attached !== "") {
+                    create_account_lst("Customer", partyvalue, accountvalue, debit, credit, description, img_attached);
+                } else {
+                    create_account_lst("", partyvalue, accountvalue, debit, credit, description, img_attached);
                 }
             });
+
+            function create_account_lst(partytype, partyvalue, accountvalue, debit, credit,description, custom_attachments) {
+                account_lst.push({
+                    'party_type': partytype,
+                    'party': partyvalue,
+                    'account': accountvalue,
+                    'debit_in_account_currency': debit,
+                    'credit_in_account_currency': credit,
+                    'user_remark': description,
+                    'custom_attachments': custom_attachments
+                });
+            }
+
+            form_data["accounts"] = account_lst;
+            console.log(account_lst);
+            create_payment_entry(form_data);
         }
 
 

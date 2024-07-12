@@ -63,6 +63,7 @@ svg{
   padding: 10px;
 }
 
+
 /* active page highlit effect */
 #sidebar .active-page:before{
   opacity: 1;
@@ -133,4 +134,14 @@ svg{
     #sidebar{
       max-width: 60px!important;
     }
+  .sidebar-header img {
+      width: 40px !important;
+  }
+  .page-section{
+    width: calc(100% - 60px);
+	  left: 60px;
+  }
+  #sidebar ul .active-page .sidebar-item-title{
+    display: none;
+  }
 }

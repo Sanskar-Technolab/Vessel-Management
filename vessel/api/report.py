@@ -24,7 +24,10 @@ def calculate_journal_entry_balances(filters):
     if from_date and to_date:
         conditions.append(f"je.posting_date BETWEEN '{from_date}' AND '{to_date}'")
 
-    # Fetch data using Frappe
+    # set default condition only showcase submitted data
+    conditions.append(f"je.docstatus=1")
+    
+    # get data
     query = """
         SELECT
             je.name,
@@ -35,11 +38,14 @@ def calculate_journal_entry_balances(filters):
             jea.debit,
             jea.credit,
             jea.party,
-            jea.custom_attachments
+            jea.custom_attachments,
+            tcr.symbol
         FROM
             `tabJournal Entry` AS je
         LEFT JOIN
             `tabJournal Entry Account` AS jea ON je.name = jea.parent
+        LEFT JOIN
+            `tabCurrency` AS tcr ON jea.account_currency = tcr.name
     """
     
     if conditions:
@@ -54,14 +60,13 @@ def calculate_journal_entry_balances(filters):
     
     entries = frappe.db.sql(query, as_dict=True)
 
-    # Initialize balance
+    # set balance is 0
     balance = 0
 
-    # Calculate balances
+    # calculate balances
     for entry in entries:
         balance = get_balance(entry, balance, 'debit', 'credit')
         entry['balance'] = balance  # Add calculated balance to each entry dictionary
-        # Print or process other fields as needed
-        print(f"Name: {entry['name']}, Account: {entry['account']}, Posting Date: {entry['posting_date']}, Balance: {balance}")
+      
         
-    return entries  # Return entries with calculated balances
+    return entries 

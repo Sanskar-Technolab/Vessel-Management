@@ -1,5 +1,6 @@
 $(document).ready(function(){
     var loggedin_user 
+    var default_company
 
      // Clear existing breadcrumbs
      $('.breadcrumbs').empty();
@@ -122,6 +123,22 @@ $(document).ready(function(){
         
     })
 
+
+    // get default company
+    $.ajax({
+        url: "/api/method/vessel.api.account.get_default_company",
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            console.log(data.message)  
+            default_company = data.message  
+            $("#default_company").text(default_company)
+        },
+        error: function (xhr, status, error) {
+            // Handle the error response here
+            console.dir(xhr); // Print the XHR object for more details
+        }
+    })
 
 
 
