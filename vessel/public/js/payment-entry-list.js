@@ -114,6 +114,35 @@ function bulk_delete(delete_list) {
 
 
 
+
+ //get mode of payment
+ get_mode_of_payment()
+ function get_mode_of_payment() {
+
+     $.ajax({
+         url: "/api/resource/Mode of Payment",
+         type: "GET",
+         dataType: "json",
+         data: {
+             fields: JSON.stringify(["name"]),
+             filters: JSON.stringify([["enabled", "=", "1"]]),
+             limit_page_length: "None"
+         },
+         success: function (data) {
+             var company = data.data
+             $.each(company, function (i, payment_mode) {
+                 $("#mode_of_payment").append(`<option value="${payment_mode.name}">${payment_mode.name}</option>`)
+             })
+         },
+         error: function (xhr, status, error) {
+             // Handle the error response here
+             console.dir(xhr); // Print the XHR object for more details
+
+         }
+     })
+ }
+
+
     function show_filtered_list(data_limit_start,filters){
          // clear table data after move next page
          $("#data-list").empty();

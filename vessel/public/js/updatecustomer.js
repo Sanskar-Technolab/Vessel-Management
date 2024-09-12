@@ -7,14 +7,11 @@ $(document).ready(function () {
     var email_list = []
     var phone_data_list
     var email_data_list
-    var customer_accounts
-    var company_value
     var contact_id
     var email_data_list
     var phone_data_list
     var company_select_list = []
     var customer_profile_img
-    var old_account_list = []
     var old_phone_list = []
     var old_email_list = []
     var new_email_list
@@ -47,16 +44,7 @@ $(document).ready(function () {
 
     
 
-    // on click delete icon to delete particular clicked row
-    $(document).on('click', '#delete_row', function () {
-        $(this).parent().remove()
-        $(".checkall").prop("checked", "false");
-        if($("#account_table tr").length==0)
-        {
-            $("#account_table").append(`<tr id="empty_table"></tr>`)
-            account_lst = []
-        }
-    })
+    
 
        // on click add email to add new row
        $("#add_email").click(function(){
@@ -131,108 +119,6 @@ $(document).ready(function () {
     })
 
 
-    // add row button to add new row in account table
-    function add_row() {
-        $("#empty_table").remove() //remove blank and default row
-
-
-        var company_id = "company_id" + $('#customer-accounts tbody tr').length
-        var account_id = "account_id" + $('#customer-accounts tbody tr').length
-
-        $("#account_table").append(`<tr class="select-accounts">
-                <td class="check"><input type="checkbox" class="checkbox" name="checkbox" /></td>
-                <td>
-                   
-                <select id="${company_id}" class="company form-select form-control tab-select">
-            
-                 </select>
-                </td>
-                <td>
-                    
-                    <select class="account form-select form-control tab-select ${account_id}" id="${account_id}" data-searchable="true">
-                            
-                 </select>
-                </td>
-            </tr>`)
-
-
-        
-        get_company(function (data) {
-            $("#" + company_id).append(`<option></option>`)
-            data.forEach(function (company) {
-                $("#" + company_id).append(`<option value="${company.name}">${company.name}</option>`);
-            });
-
-            // set default company
-            $("#" + company_id).val($("#default_company").html())
-        });
-
-
-            setTimeout(() => {
-                var companyval = $("#" + company_id).val();
-                set_account(companyval);
-         }, 200);
-        // set accounts company wise
-        function set_account(company_name) {
-            $("#" + account_id).empty()
-            setTimeout(() => {
-                get_account(function (data) {
-                    console.log(data);
-                        console.log($("#"+account_id));
-                    data.forEach(function (account) {
-                        $("#"+account_id).append(`<option value="${account.name}">${account.name}</option>`)
-                    })
-                }, company_name)
-               
-                
-            }, 200)
-        }
-        // get_account(function (data) {
-        //     $("#" + account_id).empty()
-        //     $("#" + account_id).append(`<option></option>`)
-        //     data.forEach(function (account) {
-        //         $("#" + account_id).append(`<option value="${account.name}">${account.name}</option>`)
-        //     });
-
-
-        // }, company_value);
-
-
-        $("#" + company_id).change(function () {
-            company_value = $("#" + company_id).val()
-            $("#" + account_id).append(`<option"></option>`)
-            get_account(function (data) {
-                $("#" + account_id).empty()
-                data.forEach(function (account) {
-
-                    $("#" + account_id).append(`<option value="${account.name}">${account.name}</option>`)
-                });
-
-            }, company_value);
-
-        })
-
-    }
-
-    // get company data from company master on page load time
-    get_company_details()
-
-    //set company
-    function get_company_details() {
-        company_select_list = []
-        get_company(function (data) {
-
-            $.each(data, function (i, company) {
-
-                company_select_list.push(company.name)
-            })
-
-        });
-
-    }
-
-
-
     // onclick delete row get checked checkbpx
     $("#delete_row").click(function () {
         $('.checkbox').each(function () {
@@ -242,6 +128,37 @@ $(document).ready(function () {
             }
         });
     })
+
+
+
+      // load country select box
+      get_country()
+      function get_country() {
+          $.ajax({
+              url: "/api/resource/Country",
+              type: "GET",
+              dataType: "json",
+              data: {
+                  fields: JSON.stringify(["name"]),
+                  limit_page_length: "None"
+              },
+              success: function (data) {
+                  var country_list = data.data
+                  $("#country").empty()
+                  $("#country").append(`<option></option>`)
+                  country_list.forEach(function (country, i) {
+                      // countryoptions
+                      $("#country").append(`<option value="${country.name}">${country.name}</option>`)
+                  })
+  
+  
+              },
+              error: function (xhr, status, error) {
+                  // Handle the error response here
+                  console.dir(xhr); // Print the XHR object for more details
+              }
+          })
+      }
 
 
 
@@ -262,8 +179,8 @@ $(document).ready(function () {
                 var customer_info = data.data
 
 
+             setTimeout(() => {
                 customer_id = customer_info.name
-                customer_accounts = customer_info.accounts
                 customer_name = customer_info.customer_name
                 profile_path = customer_info.image
                 customer_profile_img = customer_info.image && customer_info.image.includes("https") ? customer_info.image : (customer_info.image ? window.location.origin + customer_info.image : window.location.origin + "/assets/vessel/files/images/default_user.jpg")
@@ -277,45 +194,9 @@ $(document).ready(function () {
                 $("#country").val(customer_info.custom_country)
                 $("#address").val(customer_info.custom_address)
                 $("#customer_type").val(customer_info.customer_type)
-                $("#country").val(customer_info.custom_country)
                 $("#person_in_charge").val(customer_info.custom_person_in_charge)
                 $("#remarks").val(customer_info.custom_remarks)
                 $("#status").val(customer_info.disabled)
-
-
-                old_account_list = [] //old account blank array
-
-                $.each(customer_accounts, function (index, data) {
-                    
-                    add_row()
-
-                    var id = index
-                    setTimeout(() => {
-
-                        $("#company_id" + id).val(data.company)
-                        company_value = $("#company_id" + id).val()
-
-                        get_account(function (data) {
-                            $("#account_id" + id).empty()
-                            data.forEach(function (account) {
-
-                                $("#account_id" + id).append(`<option value="${account.name}">${account.name}</option>`)
-                            });
-
-
-                        }, company_value);
-                        // setup the company in particular field
-                        setTimeout(() => {
-                            $("#account_id" + id).val(data.account)
-                        }, 200)
-
-                    }, 150)
-
-                    old_account_list.push({ 'company': data.company, "account": data.account })
-
-                })
-
-
 
 
                 var old_form_data_list = $('form').serializeArray();
@@ -325,6 +206,7 @@ $(document).ready(function () {
                     old_form_data[field.name] = field.value;
                 });
 
+             }, 50);
 
 
 
@@ -408,58 +290,7 @@ $(document).ready(function () {
     }
 
 
-    function get_account(callback, companyval) {
-
-
-        $.ajax({
-            url: "/api/resource/Account",
-            type: "GET",
-            dataType: "json",
-            data: {
-                fields: JSON.stringify(["name"]),
-                filters: JSON.stringify([["company", "=", companyval], ["account_type","=","Receivable"], ["is_group", "=", "0"]]),
-                limit_page_length: "None"
-            },
-            success: function (data) {
-                callback(data.data)
-
-            },
-            error: function (xhr, status, error) {
-                // Handle the error response here
-                console.dir(xhr); // Print the XHR object for more details
-
-            }
-        })
-    }
-
-    // load country select box
-    get_country()
-    function get_country() {
-        $.ajax({
-            url: "/api/resource/Country",
-            type: "GET",
-            dataType: "json",
-            data: {
-                fields: JSON.stringify(["name"]),
-                limit_page_length: "None"
-            },
-            success: function (data) {
-                var country_list = data.data
-                $("#country").empty()
-                $("#country").append(`<option></option>`)
-                country_list.forEach(function (country, i) {
-                    // countryoptions
-                    $("#country").append(`<option value="${country.name}">${country.name}</option>`)
-                })
-
-
-            },
-            error: function (xhr, status, error) {
-                // Handle the error response here
-                console.dir(xhr); // Print the XHR object for more details
-            }
-        })
-    }
+  
 
 
 
@@ -579,34 +410,6 @@ $(document).ready(function () {
         }
             
 
-
-
-
-
-        // account table grouping data
-        account_lst = []
-        $('#account_table tr').each(function (index) {
-            var companyvalue = $("#company_id" + index).val();
-            var accountvalue = $("#account_id" + index).val();
-            if(companyvalue && accountvalue)
-            {
-                account_list()
-            }
-                      
-            function account_list() {
-                account_lst.push({ 'company': companyvalue, "account": accountvalue })
-            }
-
-        });
-        if (compareaccounts()) {
-            
-            updated_form_data["accounts"] = account_lst //set account list in update form data
-        }
-        else{
-            updated_form_data["accounts"] = account_lst //set account list in update form data
-        }
-
-
         // compare phone no
         function comparephone() {
             let updated = false;
@@ -635,20 +438,6 @@ $(document).ready(function () {
             return updated ? true : false;
         }
 
-        //  compare account old and new array
-        function compareaccounts() {
-            let updated = false;
-            $.each(account_lst, function (i) {
-                if (JSON.stringify(account_lst[i]) !== JSON.stringify(old_account_list[i])) {
-                    updated = true;
-                    return false;
-                }
-            })
-            return updated ? true : false;
-        }
-
-
-
 
         // error handler 
         // check customer name and customer type is filled
@@ -670,7 +459,7 @@ $(document).ready(function () {
             $(".overlay-content").text("Please Wait....")
         } else {
           
-            if (compareaccounts() || Object.keys(updated_form_data).length !== 1 || compareemail() || comparephone()) {
+            if (Object.keys(updated_form_data).length !== 0 || compareemail() || comparephone()) {
 
                 if(!contact_id)
                 {

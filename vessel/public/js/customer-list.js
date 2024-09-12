@@ -103,8 +103,8 @@ $(document).ready(function(){
                         </div>
                     </td>
                     <td>${data.customer_type ? data.customer_type : " "}</td>
-                    <td>${data.custom_person_in_charge ? data.custom_person_in_charge : " "}</td>
                     <td>${data.custom_country ? data.custom_country : " "}</td>
+                    <td>${data.custom_person_in_charge ? data.custom_person_in_charge : " "}</td>
                      <td class="d-flex ${data.disabled === 1 ? 'inactive' : 'Active'}">
                         
                     <div> ${data.disabled === 1 ? "Inactive" : "Active"} </div>
