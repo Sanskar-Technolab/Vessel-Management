@@ -523,14 +523,30 @@ function bulk_delete(delete_list) {
         },
         error: function (xhr, status, error) {
             console.dir(xhr);
-            console.log(JSON.parse(JSON.parse(xhr.responseJSON._server_messages)[0]).message);
-            var error_msg = JSON.parse(JSON.parse(xhr.responseJSON._server_messages)[0]).message.replace(/<a([^>]*)>/g, '<div style="font-weight: bold; color: white;">')
-            .replace(/<\/a>/g, '</div>');
+
+            if(xhr.responseJSON.exc_type == "LinkExistsError"){
+                notyf.error({
+                    message:"Payment entry can not be deleted,you can delete only draft entry",
+                    duration:10000
+                 });
+            }
+            else if(xhr.responseJSON.exc_type == "ValidationError"){
+                notyf.error({
+                    message:"Payment entry can not be deleted,you can delete only draft entry",
+                    duration:10000
+                 });
+            }
+            else{
+                console.log(JSON.parse(JSON.parse(xhr.responseJSON._server_messages)[0]).message);
+                var error_msg = JSON.parse(JSON.parse(xhr.responseJSON._server_messages)[0]).message.replace(/<a([^>]*)>/g, '<div style="font-weight: bold; color: white;">')
+                .replace(/<\/a>/g, '</div>');
+                
+                notyf.error({
+                    message:error_msg,
+                    duration:10000
+                 });
+            }
             
-            notyf.error({
-                message:error_msg,
-                duration:10000
-        });
         }
     });
 }

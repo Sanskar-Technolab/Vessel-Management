@@ -158,12 +158,22 @@ $(document).ready(function(){
                 },
                 error: function (xhr, status, error) {
                     $(".overlay").hide()
-                    var error_msg = xhr.responseJSON.exception.split(":")[1]       
-                            
-                    notyf.error({
-                        message:error_msg,
-                        duration:5000
-                    });
+                    console.log(xhr);
+                    if(xhr.responseJSON.exc_type == "LinkExistsError")
+                        {
+                            notyf.error({
+                                message:"Customer is linked with another form,you can inactive them.",
+                                duration:5000
+                            });
+                        }
+                        else{
+                            var error_msg = xhr.responseJSON.exception.split(":")[1]       
+                                
+                            notyf.error({
+                                message:error_msg,
+                                duration:5000
+                            });
+                        }
                 }
             });
         }

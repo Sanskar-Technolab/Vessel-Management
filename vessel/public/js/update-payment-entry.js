@@ -780,7 +780,9 @@ $(document).ready(function () {
         print.document.close();
 
         print.onload = function() {
-            print.print();
+            setTimeout(() => {
+                print.print();
+            }, 10);
             print.onafterprint = function() {
                 print.close();
             };
