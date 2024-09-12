@@ -114,6 +114,35 @@ function bulk_delete(delete_list) {
 
 
 
+
+ //get mode of payment
+ get_mode_of_payment()
+ function get_mode_of_payment() {
+
+     $.ajax({
+         url: "/api/resource/Mode of Payment",
+         type: "GET",
+         dataType: "json",
+         data: {
+             fields: JSON.stringify(["name"]),
+             filters: JSON.stringify([["enabled", "=", "1"]]),
+             limit_page_length: "None"
+         },
+         success: function (data) {
+             var company = data.data
+             $.each(company, function (i, payment_mode) {
+                 $("#mode_of_payment").append(`<option value="${payment_mode.name}">${payment_mode.name}</option>`)
+             })
+         },
+         error: function (xhr, status, error) {
+             // Handle the error response here
+             console.dir(xhr); // Print the XHR object for more details
+
+         }
+     })
+ }
+
+
     function show_filtered_list(data_limit_start,filters){
          // clear table data after move next page
          $("#data-list").empty();
@@ -494,14 +523,30 @@ function bulk_delete(delete_list) {
         },
         error: function (xhr, status, error) {
             console.dir(xhr);
-            console.log(JSON.parse(JSON.parse(xhr.responseJSON._server_messages)[0]).message);
-            var error_msg = JSON.parse(JSON.parse(xhr.responseJSON._server_messages)[0]).message.replace(/<a([^>]*)>/g, '<div style="font-weight: bold; color: white;">')
-            .replace(/<\/a>/g, '</div>');
+
+            if(xhr.responseJSON.exc_type == "LinkExistsError"){
+                notyf.error({
+                    message:"Payment entry can not be deleted,you can delete only draft entry",
+                    duration:10000
+                 });
+            }
+            else if(xhr.responseJSON.exc_type == "ValidationError"){
+                notyf.error({
+                    message:"Payment entry can not be deleted,you can delete only draft entry",
+                    duration:10000
+                 });
+            }
+            else{
+                console.log(JSON.parse(JSON.parse(xhr.responseJSON._server_messages)[0]).message);
+                var error_msg = JSON.parse(JSON.parse(xhr.responseJSON._server_messages)[0]).message.replace(/<a([^>]*)>/g, '<div style="font-weight: bold; color: white;">')
+                .replace(/<\/a>/g, '</div>');
+                
+                notyf.error({
+                    message:error_msg,
+                    duration:10000
+                 });
+            }
             
-            notyf.error({
-                message:error_msg,
-                duration:10000
-        });
         }
     });
 }

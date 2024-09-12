@@ -109,8 +109,10 @@ $(document).ready(function () {
                      </select>
                 </td>
                 <td>
-                    <select id=${account_id} class="account_type form-select custom-select tab-select">
+                    <select id=${account_id} class="account_type form-select custom-select tab-select" disabled="true">
                         <option></option>
+                        <option value="Debtors - UM">Debtors - UM</option>
+                        <option value="Bank Account - UM" selected>Bank Account - UM</option>
                        
                      </select>
                 </td>
@@ -138,35 +140,20 @@ $(document).ready(function () {
                 $("#" + party_id).append(`<option value="${customer.name}"> ${customer.customer_name} - ${customer.name}</option>`)
             })
 
-        get_bank_account(function (data)  {
-
-            $.each(data, function (i, account) {
-                $("#" + account_id).append(`<option value="${account.name}">${account.name}</option>`)
-            })
-        })
 
         $("#" + party_id).change(function () {
-            $("#" + account_id).empty()
+            
             var customer_name = $(this).val()
             
             if (customer_name == "") {
-                get_bank_account(function (data) {
-
-                    
-                    $.each(data, function (i, account) {
-                        $("#" + account_id).append(`<option value="${account.name}">${account.name}</option>`)
-                    })
-                })
+                 
+                 $("#" + account_id).val("Bank Account - UM")
+              
             }
             else {
-
-                $("#" + account_id).empty()
-                get_account(function (data) {
-
-                    $.each(data, function (i, account) {
-                        $("#" + account_id).append(`<option value="${account.account}">${account.account}</option>`)
-                    })
-                }, customer_name)
+                
+                $("#" + account_id).val("Debtors - UM")
+             
             }
 
         })
@@ -201,51 +188,6 @@ $(document).ready(function () {
 
 
 
-
-    // get customer wise account from customer
-    function get_account(callback, customer) {
-        var company = $("#company").val()
-        $.ajax({
-            url: "/api/method/vessel.api.account.get_accounts",
-            type: "GET",
-            dataType: "json",
-            data: {
-                "customer": customer,
-                "company": company
-            },
-            success: function (data) {
-                
-                callback(data.message)
-
-            },
-            error: function (xhr, status, error) {
-                // Handle the error response here
-                console.dir(xhr); // Print the XHR object for more details
-            }
-        })
-    }
-
-    function get_bank_account(callback) {
-        var company = $("#company").val()
-        
-        $.ajax({
-            url: "/api/method/vessel.api.account.get_bank_accounts",
-            type: "GET",
-            dataType: "json",
-            data: {
-                "company": company
-            },
-            success: function (data) {
-                
-                callback(data.message)
-
-            },
-            error: function (xhr, status, error) {
-                // Handle the error response here
-                console.dir(xhr); // Print the XHR object for more details
-            }
-        })
-    }
 
 
     get_customer()
@@ -317,8 +259,8 @@ $(document).ready(function () {
                 })
             },
             error: function (xhr, status, error) {
-                // Handle the error response here
-                console.dir(xhr); // Print the XHR object for more details
+               
+                console.dir(xhr); 
 
             }
         })
@@ -364,13 +306,6 @@ $(document).ready(function () {
         
         if(!validation())
         {
-
-            if(files.length == 0){
-                notyf.error({
-                            message: "Please fill all mandatory fields in table",
-                            duration: 3000
-                        })
-            }
 
 
             // counter to track upload image or not
@@ -430,7 +365,8 @@ $(document).ready(function () {
 
         function handleUploadSuccess(response, index) {
             // Check if response.message is valid
-            if (response.message && typeof response.message.file_url === 'string') {
+            if (response.message && typeof response.message.file_url === 'string' && response.message.file_url != "") {
+                
                 $("#img_attached" + index).html(`<a href="${response.message.file_url}" data-fileurl="${response.message.file_url}">${response.message.file_url.substring(0, 10) + '...'}</a>`);
                 file_list.push(response.message);
                 uploadedFileUrls.push(response.message.file_url);

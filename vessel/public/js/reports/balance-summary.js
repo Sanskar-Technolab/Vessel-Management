@@ -292,7 +292,6 @@ $("#refresh_report").click(function(){
 })
 
 
-
 // Print report
 
      // Function to generate dynamic table
@@ -332,7 +331,9 @@ $("#refresh_report").click(function(){
         print.document.close();
 
         print.onload = function() {
+           setTimeout(() => {
             print.print();
+           }, 10);
             print.onafterprint = function() {
                 print.close();
             };
@@ -360,6 +361,7 @@ $("#refresh_report").click(function(){
             
         }
 });
+
 
     
     

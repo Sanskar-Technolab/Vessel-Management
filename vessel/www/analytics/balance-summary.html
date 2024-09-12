@@ -167,11 +167,20 @@
 
 <div id="table_container" style="display: none;">
     <h3 class="text-center" style="font-size: 18px;text-align: center;color: #366192;font-weight: 600;">STATEMENT OF ACCOUNT</h3>
-    <div style="text-align: right;margin-top: 30px;padding-bottom: 30px;">Statement Date: <span id="statement_date"></span></div>
+    <div style="display:flex;justify-content: space-between;margin-bottom: 30px;">
+        <div style="align-items: center;display: flex;">
+          <img src="/assets/vessel/files/images/uniseas_marine.png" style="width: 80px;">
+        </div>
+        <div>
+          <div style="text-align: right;margin-top: 30px;"><span style="font-weight: bold;">Statement Date:</span> <span id="statement_date"></span></div>
+          
+        </div>
+      </div>
+    
     <table id="print_report_table" style="width:100%;border:1px solid #111;border-collapse: collapse;">
         <thead>
             <th style="width: 200px;">Date</th>
-            <th style="width: 300px;">Description</th>
+            <th style="width: 300px;">Remarks</th>
             <th style="width: 150px;">Debit</th>
             <th style="width: 150px;">Credit</th>
             <th style="width: 150px;">Account Balance</th>

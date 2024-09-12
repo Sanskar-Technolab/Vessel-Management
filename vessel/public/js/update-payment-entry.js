@@ -6,7 +6,11 @@ $(document).ready(function () {
     var diff_account_lst = []
     var old_form_data = []
     var file_list = []
+    var currency
+    var party_name
     var files = []
+    var printentry_data = []
+    var printentry_single_data = []
     var currency_symbol
     var updated_form_data = {}; //updated data form
     // Create an instance of Notyf
@@ -89,8 +93,10 @@ $(document).ready(function () {
                      </select>
                 </td>
                 <td>
-                    <select id=${account_id} class="partytype form-select form-control custom-select tab-select">
+                     <select id=${account_id} class="account_type form-select custom-select tab-select" disabled="true">
                         <option></option>
+                        <option value="Debtors - UM">Debtors - UM</option>
+                        <option value="Bank Account - UM" selected>Bank Account - UM</option>
                        
                      </select>
                 </td>
@@ -118,36 +124,20 @@ $(document).ready(function () {
             $("#" + party_id).append(`<option value="${customer.name}"> ${customer.customer_name} - ${customer.name}</option>`)
         })
 
-        get_bank_account(function (data) {
-
-            $.each(data, function (i, account) {
-                $("#" + account_id).append(`<option value="${account.name}">${account.name}</option>`)
-            })
-        })
-
         $("#" + party_id).change(function () {
-            $("#" + account_id).empty()
+            // $("#" + account_id).empty()
             var customer_name = $(this).val()
 
             if (customer_name == "") {
-                get_bank_account(function (data) {
-
-                    
-                    $.each(data, function (i, account) {
-                        $("#" + account_id).append(`<option value="${account.name}">${account.name}</option>`)
-                    })
-                })
-            }
-            else {
-
-                $("#" + account_id).empty()
-                get_account(function (data) {
-
-                    $.each(data, function (i, account) {
-                        $("#" + account_id).append(`<option value="${account.account}">${account.account}</option>`)
-                    })
-                }, customer_name)
-            }
+                 
+                $("#" + account_id).val("Bank Account - UM")
+               
+           }
+           else {
+               
+               $("#" + account_id).val("Debtors - UM")
+            
+           }
 
         })
 
@@ -185,49 +175,6 @@ $(document).ready(function () {
 
     }
 
-    // get customer wise account from customer
-    function get_account(callback, customer) {
-        var company = $("#company").val()
-        $.ajax({
-            url: "/api/method/vessel.api.account.get_accounts",
-            type: "GET",
-            dataType: "json",
-            data: {
-                "customer": customer,
-                "company": company
-            },
-            success: function (data) {
-                
-                callback(data.message)
-
-            },
-            error: function (xhr, status, error) {
-                // Handle the error response here
-                console.dir(xhr); // Print the XHR object for more details
-            }
-        })
-    }
-
-    function get_bank_account(callback) {
-        var company = $("#company").val()
-        $.ajax({
-            url: "/api/method/vessel.api.account.get_bank_accounts",
-            type: "GET",
-            dataType: "json",
-            data: {
-                "company": company
-            },
-            success: function (data) {
-                
-                callback(data.message)
-
-            },
-            error: function (xhr, status, error) {
-                // Handle the error response here
-                console.dir(xhr); // Print the XHR object for more details
-            }
-        })
-    }
 
 
     get_customer()
@@ -243,6 +190,25 @@ $(document).ready(function () {
             },
             success: function (data) {
                 customer_list = data.data
+
+
+            },
+            error: function (xhr, status, error) {
+                // Handle the error response here
+                console.dir(xhr); // Print the XHR object for more details
+            }
+        })
+    }
+
+    
+    function get_customer_details(customer) {
+        $.ajax({
+            url: "/api/resource/Customer/"+customer,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+               console.log(data);
+               party_name = data.data.customer_name
 
 
             },
@@ -279,7 +245,7 @@ $(document).ready(function () {
         })
     }
 
-    //get company
+    //get mode of payment
     get_mode_of_payment()
     function get_mode_of_payment() {
 
@@ -349,8 +315,9 @@ $(document).ready(function () {
         success: function (data) {
             
             var payment_entry = data.data
-
-            var currency = payment_entry.total_amount_currency
+            console.log(payment_entry);
+            currency = payment_entry.total_amount_currency
+            
             get_currency(currency)
             
 
@@ -391,12 +358,15 @@ $(document).ready(function () {
             }
 
             old_account_lst = []
+            printentry_data = []
             $.each(payment_entry.accounts, function (index, account) {
                
           
 
                 add_row()
                 setTimeout(() => {
+                   
+
                     var debit_amount = currency_symbol+account.debit
                     var credit_amount = currency_symbol+account.credit
                 
@@ -410,6 +380,26 @@ $(document).ready(function () {
                     $("#description" + index).val(account.user_remark)
                     if (account.custom_attachments) {
                         $("#img_attached" + index).html(`<a href='${account.custom_attachments}' data-fileurl="${account.custom_attachments}">${account.custom_attachments.substring(0, 10) + '...'}</a> `)
+                    }
+
+                    // get currency symbol
+                    get_currency(account.account_currency)
+                                       
+
+                    printentry_data.push({
+                        'account': account.account,
+                        'debit_in_account_currency': account.debit,
+                        'credit_in_account_currency': account.credit,
+                        'user_remark': account.user_remark,
+                        'currency_icon':currency_symbol
+                    });
+
+                    if(account.party){
+                        get_customer_details(account.party)
+                        setTimeout(() => {
+                            console.log(party_name);
+                            $("#party_name").text(party_name)
+                        }, 50);
                     }
 
                 }, 200);
@@ -426,23 +416,14 @@ $(document).ready(function () {
                     'custom_attachments': payment_entry.custom_attachments
                 });
 
-
+               
 
 
             })
 
+            
+            
 
-
-
-            // setTimeout(() => {
-            //     // if change any form input and select than change submit to save button
-            //     $(document).on('change', 'input, select', function () {
-            //         $("#submit").remove()
-            //         $("#save").remove()
-            //         $(".action-btn-group").append(`<button class="btn save-btn" id="save">Save</button>`)
-                    
-            //     });
-            // }, 200);
 
 
             var old_form_data_list = $('form').serializeArray();
@@ -512,18 +493,9 @@ $(document).ready(function () {
     });
 
 
-  // on input to show save button
-//   $("input").on("input",function(){
-//     $("#save").remove()
-//     $("#save").show()
-//     $("#submit").hide()
-//   })
-
-
-
 
     $(document).on("click", "#save", function () {
-        console.log("sasasasasaas===================================");
+
        
         var form_data_list = $('form').serializeArray();
         var form_data = {};
@@ -664,12 +636,6 @@ $(document).ready(function () {
             update_payment_entry(updated_form_data);
         }
 
-
-
-       
-
-
-
     })
 
    
@@ -764,5 +730,91 @@ $(document).ready(function () {
         }
     })
     })
+
+
+
+
+
+
+// Print report
+
+     // function to generate dynamic table
+     function generateprint(data) {
+        
+        $("#printentry_data").empty()
+        
+        $.each(data,function(index,report_data){
+           
+            $("#printentry_data").append(`
+                    <tr>${printentry_single_data}</tr>
+                    <tr>
+                        
+                        
+                        <td>${report_data.account ? report_data.account:'' }</td>
+                        <td>${report_data.debit_in_account_currency ? report_data.currency_icon + report_data.debit_in_account_currency:report_data.currency_icon+'0' }</td>
+                        <td>${report_data.credit_in_account_currency ? report_data.currency_icon + report_data.credit_in_account_currency:report_data.currency_icon+'0' }</td>
+                        <td>${report_data.user_remark ? report_data.user_remark:'' }</td>
+                        
+                    </tr>
+                
+                `)
+
+           
+        })
+      
+       
+
+
+        var divContents = document.getElementById("table_container").innerHTML;
+        var print = window.open('', '');
+        print.document.write('<html><head><title>'+payment_entry_id+'</title>');
+        print.document.write('<link rel="stylesheet" href="/assets/vessel/css/printview.css" type="text/css" />');
+        print.document.write('<link rel="preconnect" href="https://fonts.googleapis.com" />');
+        print.document.write('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />');
+        print.document.write(' <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Rasa:wght@500&display=swap" rel="stylesheet" />');
+        print.document.write('<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>');
+        print.document.write('<script src="/assets/vessel/js/paymententryprint.js"></script>');
+        print.document.write('</head><body>');
+        print.document.write(divContents);
+        print.document.write('</body></html>');
+        print.document.close();
+
+        print.onload = function() {
+            setTimeout(() => {
+                print.print();
+            }, 10);
+            print.onafterprint = function() {
+                print.close();
+            };
+        };
+        
+    }
+
+
+    function print_entry() {
+        generateprint(printentry_data);
+    }
+
+    
+
+    $('#print_entry').click(function(){
+             // get currency symbol
+             get_currency(currency)
+             console.log(currency_symbol);
+              
+             $("#modeofpayment").html($("#mode_of_payment").val())
+             $("#totaldebit").html(currency_symbol+$("#total_debit").val())
+             $("#totalcredit").html(currency_symbol+$("#total_credit").val())
+
+            print_entry();
+
+    });
+
+
+
+
+
+   
+
 
 })

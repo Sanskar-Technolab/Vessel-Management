@@ -23,7 +23,7 @@ body {
     border-radius: 16px;
     max-height: calc(100dvh - 180px);
     overflow: auto;
-    
+    scrollbar-width: thin;    
 
 }
 .report-section .filter-section{
