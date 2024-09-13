@@ -732,6 +732,18 @@ $(document).ready(function () {
     })
 
 
+    // date format
+    function date_format(date){
+
+        var date_parts = date.split('-');
+        var year = date_parts[0];
+        var month = date_parts[1];
+        var day = date_parts[2];
+
+        return day + '-' + month + '-' + year;
+    }
+
+
 
 
 
@@ -801,12 +813,15 @@ $(document).ready(function () {
              // get currency symbol
              get_currency(currency)
              console.log(currency_symbol);
-              
+             
+             $("#entry_date").html(date_format($("#posting_date").val()))
              $("#modeofpayment").html($("#mode_of_payment").val())
              $("#totaldebit").html(currency_symbol+$("#total_debit").val())
              $("#totalcredit").html(currency_symbol+$("#total_credit").val())
 
-            print_entry();
+            setTimeout(() => {
+                print_entry();
+            }, 100);
 
     });
 

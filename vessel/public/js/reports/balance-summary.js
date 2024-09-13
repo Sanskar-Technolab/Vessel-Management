@@ -3,6 +3,8 @@ $(document).ready(function(){
     var balance_summary
     var report_print_data = []
     var report_data_len = 0
+    var party_name
+    
     // Create an instance of Notyf
     var notyf = new Notyf();
 
@@ -20,6 +22,12 @@ $(document).ready(function(){
         },500)
 
     });
+
+
+    // customer on change
+    $("#customer_name").change(function(){
+        get_customer_details()
+    })
 
     //get_customer and set in options
     get_customer()
@@ -47,6 +55,28 @@ $(document).ready(function(){
         })
     }
 
+    // get selected customer details
+    localStorage.removeItem("party_name")
+function get_customer_details(){
+        var customer_val = $("#customer_name").val()
+        $.ajax({
+            url: "/api/resource/Customer/"+customer_val,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+               
+               party_name = data.data.customer_name
+            
+                localStorage.removeItem("party_name")
+                localStorage.setItem("party_name",party_name)
+            },
+            error: function (xhr, status, error) {
+                // Handle the error response here
+                console.dir(xhr); // Print the XHR object for more details
+            }
+        })
+}
+   
 
       //get_company and set in options
       get_company()
@@ -218,6 +248,7 @@ $(document).ready(function(){
                         });
                         
                })
+                       
 
                report_data_len = report_print_data.length
                
@@ -264,9 +295,6 @@ column_filters(".attachments", ".attached_data");
 column_filters(".account_input", ".account_data");
 
 
-    
-    
-
 
 // date format
 function date_format(date){
@@ -296,23 +324,49 @@ $("#refresh_report").click(function(){
 
      // Function to generate dynamic table
      function generateprint(data) {
+        
+
+        var min_date , max_date ;
+
+
+
+
+            // get min and max date for report from_date and to_date
+            var dateArray = data.map(function(item) {
+                // convert format dd-mm-yy to yy-mm-dd for date function parsing
+                var parts = item.date.split("-");
+                return new Date(parts[2], parts[1] - 1, parts[0]);  //format date year-month-day
+            });
+
+            // get min and max date
+            min_date = new Date(Math.min.apply(null, dateArray)).toLocaleDateString()
+            max_date = new Date(Math.max.apply(null, dateArray)).toLocaleDateString()
+                
+                localStorage.removeItem("min_date")
+                localStorage.removeItem("max_date")
+                localStorage.setItem("min_date",min_date)
+                localStorage.setItem("max_date",max_date)
+
      
         $("#report_print_data").empty()
         $.each(data,function(index,report_data){
             console.log(report_data.date);
             $("#report_print_data").append(`
-
+                
                     <tr>
-                        <td>${report_data.date}</td>
-                        <td>${report_data.description ? report_data.description:'' }</td>
+                        <td class="date">${report_data.date}</td>
                         <td class="debit_data">${report_data.symbol+report_data.debits}</td>
                         <td class="credit_data">${report_data.symbol+report_data.credits}</td>
                         <td class="balance_data">${report_data.symbol+report_data.account_balance}</td>
+                        <td>${report_data.description ? report_data.description:'' }</td>
                     </tr>
                 
                 `)
-        })
-       
+               
+        })   
+
+
+
 
 
 
@@ -333,9 +387,9 @@ $("#refresh_report").click(function(){
         print.onload = function() {
            setTimeout(() => {
             print.print();
-           }, 10);
+           }, 30);
             print.onafterprint = function() {
-                print.close();
+                print.close();  
             };
         };
         
@@ -351,7 +405,7 @@ $("#refresh_report").click(function(){
     $('#print_report').click(function(){
         if(report_data_len != 0)
         {
-           print_report();
+                print_report();           
         }
         else{
                 notyf.error({

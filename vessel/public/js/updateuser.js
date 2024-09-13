@@ -20,6 +20,7 @@ $(document).ready(function () {
 
 
 
+
     var files = []
 
     $('#upload-image').change(function () {
@@ -479,5 +480,6 @@ function update_user(updated_form_data) {
         }
     }
         
+   
 
 })
