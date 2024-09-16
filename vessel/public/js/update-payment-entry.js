@@ -394,13 +394,7 @@ $(document).ready(function () {
                         'currency_icon':currency_symbol
                     });
 
-                    if(account.party){
-                        get_customer_details(account.party)
-                        setTimeout(() => {
-                            console.log(party_name);
-                            $("#party_name").text(party_name)
-                        }, 50);
-                    }
+                    
 
                 }, 200);
 
@@ -760,8 +754,7 @@ $(document).ready(function () {
             $("#printentry_data").append(`
                     <tr>${printentry_single_data}</tr>
                     <tr>
-                        
-                        
+                        <td class="no">${index + 1 }</td>
                         <td>${report_data.account ? report_data.account:'' }</td>
                         <td>${report_data.debit_in_account_currency ? report_data.currency_icon + report_data.debit_in_account_currency:report_data.currency_icon+'0' }</td>
                         <td>${report_data.credit_in_account_currency ? report_data.currency_icon + report_data.credit_in_account_currency:report_data.currency_icon+'0' }</td>

@@ -354,6 +354,7 @@ $("#refresh_report").click(function(){
             $("#report_print_data").append(`
                 
                     <tr>
+                        <td class="no">${index + 1 }</td>
                         <td class="date">${report_data.date}</td>
                         <td class="debit_data">${report_data.symbol+report_data.debits}</td>
                         <td class="credit_data">${report_data.symbol+report_data.credits}</td>
